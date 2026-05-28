@@ -59,7 +59,7 @@ const expectedNavLabels = [
   "About",
   "Services",
   "Quality & Testing",
-  "Engineering Support",
+  "Engineering",
   "Industries",
   "Resources",
   "Contact",
@@ -69,7 +69,7 @@ const expectedFooterGroups = [
   "About",
   "Services",
   "Quality & Testing",
-  "Engineering Support",
+  "Engineering",
   "Industries",
   "Resources",
   "Contact",
@@ -125,14 +125,17 @@ test("site data contains the complete sitemap href set", () => {
 test("header navigation exposes the required dropdown groups", () => {
   const data = readFileSync(join(root, "lib/site-data.ts"), "utf8");
   const header = readFileSync(join(root, "components/site/Header.tsx"), "utf8");
+  const css = readFileSync(join(root, "app/globals.css"), "utf8");
 
   for (const label of expectedNavLabels) {
     assert.match(data, new RegExp(`label: "${label}"`), `${label} should be in nav data`);
   }
 
+  assert.doesNotMatch(data, /label: "Engineering Support", href: routes\.engineeringSupport/);
   assert.match(header, /navItems/);
   assert.match(header, /NavigationChildren/);
   assert.match(header, /Request a Quote/);
+  assert.match(css, /white-space:\s*nowrap/);
 });
 
 test("footer navigation exposes the required footer groups", () => {
