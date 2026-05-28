@@ -4,6 +4,7 @@ import { EMSBoxBuildBlock } from "@/components/home/EMSBoxBuildBlock";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { Hero } from "@/components/home/Hero";
 import { OfficialResourcesTeaser } from "@/components/home/OfficialResourcesTeaser";
+import { PCBAChildServicesBlock } from "@/components/home/PCBAChildServicesBlock";
 import { PCBAServiceBlock } from "@/components/home/PCBAServiceBlock";
 import { ServicesOverview } from "@/components/home/ServicesOverview";
 import { SupportCapabilitiesBlock } from "@/components/home/SupportCapabilitiesBlock";
@@ -15,6 +16,7 @@ export default function HomePage() {
       <BrandPositioning />
       <ServicesOverview />
       <PCBAServiceBlock />
+      <PCBAChildServicesBlock />
       <EMSBoxBuildBlock />
       <SupportCapabilitiesBlock />
       <BrandClarificationTeaser />

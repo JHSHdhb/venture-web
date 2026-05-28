@@ -390,7 +390,8 @@ select {
 .service-card,
 .info-panel,
 .placeholder-card,
-.form-panel {
+.form-panel,
+.service-group {
   border: 1px solid var(--line-gray);
   border-radius: 8px;
   background: var(--card-white);
@@ -448,6 +449,25 @@ select {
 }
 
 .info-panel p {
+  color: var(--text-muted);
+}
+
+.service-group {
+  padding: 26px;
+}
+
+.service-group__header {
+  max-width: 760px;
+  margin-bottom: 22px;
+}
+
+.service-group__header h3 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.service-group__header p {
+  margin: 10px 0 0;
   color: var(--text-muted);
 }
 
@@ -509,6 +529,13 @@ select {
   margin: 20px 0 0;
   color: var(--text-muted);
   font-size: 1.08rem;
+}
+
+.placeholder-card__summary {
+  max-width: 780px;
+  margin: 14px 0 0;
+  color: #2f3b4f;
+  font-size: 1rem;
 }
 
 .placeholder-card__note {

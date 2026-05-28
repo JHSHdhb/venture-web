@@ -30,6 +30,7 @@ const requiredFiles = [
   "components/home/BrandPositioning.tsx",
   "components/home/ServicesOverview.tsx",
   "components/home/PCBAServiceBlock.tsx",
+  "components/home/PCBAChildServicesBlock.tsx",
   "components/home/EMSBoxBuildBlock.tsx",
   "components/home/SupportCapabilitiesBlock.tsx",
   "components/home/BrandClarificationTeaser.tsx",
@@ -38,6 +39,7 @@ const requiredFiles = [
   "components/shared/PageShell.tsx",
   "components/shared/SectionHeader.tsx",
   "components/shared/ServiceCard.tsx",
+  "components/shared/ServiceGroup.tsx",
   "components/shared/PlaceholderPage.tsx",
   "lib/site-data.ts",
 ];
@@ -97,6 +99,7 @@ test("homepage composes the required client-review demo sections", () => {
     "BrandPositioning",
     "ServicesOverview",
     "PCBAServiceBlock",
+    "PCBAChildServicesBlock",
     "EMSBoxBuildBlock",
     "SupportCapabilitiesBlock",
     "BrandClarificationTeaser",
@@ -104,6 +107,37 @@ test("homepage composes the required client-review demo sections", () => {
     "FinalCTA",
   ]) {
     assert.match(home, new RegExp(`<${component} ?/?>`), `${component} should render on the homepage`);
+  }
+});
+
+test("placeholder pages include summaries and the exact Stage 3 copy note", () => {
+  const data = readFileSync(join(root, "lib/site-data.ts"), "utf8");
+  const placeholder = readFileSync(join(root, "components/shared/PlaceholderPage.tsx"), "utf8");
+
+  assert.match(data, /summary:/, "placeholder page data should include public-safe summaries");
+  assert.match(placeholder, /summary/, "PlaceholderPage should render each page summary");
+  assert.match(placeholder, /Final copy will be created in Stage 3\./);
+});
+
+test("footer includes the required contact link group", () => {
+  const data = readFileSync(join(root, "lib/site-data.ts"), "utf8");
+
+  assert.match(data, /title: "Contact"/);
+  assert.match(data, /Email placeholder/);
+  assert.match(data, /Quote form/);
+  assert.match(data, /Location \/ contact details placeholder/);
+});
+
+test("required internal links from the structure lock are represented", () => {
+  const data = readFileSync(join(root, "lib/site-data.ts"), "utf8");
+
+  for (const route of [
+    "routes.pcbFabrication",
+    "routes.contact",
+    "routes.brandClarification",
+    "routes.officialResources",
+  ]) {
+    assert.match(data, new RegExp(route), `${route} should appear in related links`);
   }
 });
 
