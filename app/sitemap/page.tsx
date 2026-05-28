@@ -1,6 +1,6 @@
 import { PlaceholderPage } from "@/components/shared/PlaceholderPage";
 import { placeholderPages } from "@/lib/site-data";
 
-export default function HomePage() {
-  return <PlaceholderPage {...placeholderPages.home} />;
+export default function SitemapPage() {
+  return <PlaceholderPage {...placeholderPages.sitemap} />;
 }

@@ -5,52 +5,89 @@ import { join } from "node:path";
 
 const root = process.cwd();
 
-const requiredFiles = [
-  "app/layout.tsx",
-  "app/page.tsx",
-  "app/globals.css",
-  "app/about/page.tsx",
-  "app/services/page.tsx",
-  "app/services/pcb-assembly-pcba/page.tsx",
-  "app/services/pcb-assembly-pcba/turnkey-pcb-assembly/page.tsx",
-  "app/services/pcb-assembly-pcba/prototype-low-volume-pcba/page.tsx",
-  "app/services/pcb-assembly-pcba/smt-tht-bga-capabilities/page.tsx",
-  "app/services/ems-box-build/page.tsx",
-  "app/services/pcb-fabrication/page.tsx",
-  "app/services/component-sourcing-bom-review/page.tsx",
-  "app/services/testing-quality-control/page.tsx",
-  "app/brand/venture-electronics-vs-venture-pcb-pcba/page.tsx",
-  "app/official-resources/page.tsx",
-  "app/resources/faq/page.tsx",
-  "app/contact/page.tsx",
-  "components/site/Header.tsx",
-  "components/site/Footer.tsx",
-  "components/site/CTAButton.tsx",
-  "components/home/Hero.tsx",
-  "components/home/BrandPositioning.tsx",
-  "components/home/ServicesOverview.tsx",
-  "components/home/PCBAServiceBlock.tsx",
-  "components/home/PCBAChildServicesBlock.tsx",
-  "components/home/EMSBoxBuildBlock.tsx",
-  "components/home/SupportCapabilitiesBlock.tsx",
-  "components/home/BrandClarificationTeaser.tsx",
-  "components/home/OfficialResourcesTeaser.tsx",
-  "components/home/FinalCTA.tsx",
-  "components/shared/PageShell.tsx",
-  "components/shared/SectionHeader.tsx",
-  "components/shared/ServiceCard.tsx",
-  "components/shared/ServiceGroup.tsx",
-  "components/shared/PlaceholderPage.tsx",
-  "lib/site-data.ts",
+const expectedRoutes = [
+  "/",
+  "/about/",
+  "/brand/venture-electronics-vs-venture-pcb-pcba/",
+  "/official-resources/",
+  "/about/company-overview/",
+  "/about/news/",
+  "/services/",
+  "/services/pcb-assembly-pcba/",
+  "/services/pcb-assembly-pcba/turnkey-pcb-assembly/",
+  "/services/pcb-assembly-pcba/prototype-low-volume-pcba/",
+  "/services/pcb-assembly-pcba/smt-tht-bga-capabilities/",
+  "/services/ems-box-build/",
+  "/services/pcb-fabrication/",
+  "/services/component-sourcing-bom-review/",
+  "/quality-testing/",
+  "/quality-testing/testing-quality-control/",
+  "/quality-testing/electrical-testing/",
+  "/quality-testing/product-reliability-testing/",
+  "/quality-testing/testing-inspection-equipment/",
+  "/quality-testing/quality-management-system/",
+  "/quality-testing/packaging-logistics/",
+  "/engineering-support/",
+  "/engineering-support/smt-tht-bga-process-support/",
+  "/engineering-support/pcb-test-fixture-support/",
+  "/engineering-support/ic-programming-support/",
+  "/industries/",
+  "/industries/industrial-electronics/",
+  "/industries/iot-smart-devices/",
+  "/industries/consumer-electronics/",
+  "/industries/energy-power-electronics/",
+  "/industries/automation-control/",
+  "/industries/communication-equipment/",
+  "/resources/",
+  "/resources/faq/",
+  "/resources/blog/",
+  "/resources/guides/",
+  "/resources/downloads/",
+  "/resources/catalog/",
+  "/resources/glossary/",
+  "/resources/case-studies/",
+  "/contact/",
+  "/request-a-quote/",
+  "/thank-you/",
+  "/privacy-policy/",
+  "/terms/",
+  "/sitemap/",
 ];
 
-const forbiddenPaths = [
-  "app/capabilities/page.tsx",
-  "app/services/ems-manufacturing/page.tsx",
-  "app/services/box-build-assembly/page.tsx",
-  "app/services/component-sourcing/page.tsx",
-  "app/services/dfm-bom-review/page.tsx",
+const expectedNavLabels = [
+  "Home",
+  "About",
+  "Services",
+  "Quality & Testing",
+  "Engineering Support",
+  "Industries",
+  "Resources",
+  "Contact",
 ];
+
+const expectedFooterGroups = [
+  "About",
+  "Services",
+  "Quality & Testing",
+  "Engineering Support",
+  "Industries",
+  "Resources",
+  "Contact",
+  "Legal",
+];
+
+const obsoleteRoutes = [
+  "/services/testing-quality-control/",
+  "/capabilities/",
+  "/services/ems-manufacturing/",
+  "/services/box-build-assembly/",
+  "/services/component-sourcing/",
+  "/services/dfm-bom-review/",
+];
+
+function routeToPageFile(route) {
+  return route === "/" ? "app/page.tsx" : `app${route}page.tsx`;
+}
 
 function readSourceFiles(dir) {
   return readdirSync(join(root, dir), { withFileTypes: true }).flatMap((entry) => {
@@ -63,91 +100,69 @@ function readSourceFiles(dir) {
   });
 }
 
-test("creates the required Next.js App Router scaffold files", () => {
-  for (const file of requiredFiles) {
-    assert.equal(existsSync(join(root, file)), true, `${file} should exist`);
+test("creates every route placeholder in the nav-only sitemap", () => {
+  for (const route of expectedRoutes) {
+    const pageFile = routeToPageFile(route);
+    assert.equal(existsSync(join(root, pageFile)), true, `${pageFile} should exist for ${route}`);
   }
 });
 
-test("does not create old or explicitly forbidden first-build service routes", () => {
-  for (const file of forbiddenPaths) {
-    assert.equal(existsSync(join(root, file)), false, `${file} should not exist`);
+test("does not keep obsolete service routes from the previous scaffold", () => {
+  for (const route of obsoleteRoutes) {
+    const pageFile = routeToPageFile(route);
+    assert.equal(existsSync(join(root, pageFile)), false, `${pageFile} should not exist`);
   }
 });
 
-test("site data preserves the updated Stage 2 service hierarchy", () => {
+test("site data contains the complete sitemap href set", () => {
   const data = readFileSync(join(root, "lib/site-data.ts"), "utf8");
 
-  assert.match(data, /PCB Assembly \/ PCBA/);
-  assert.match(data, /Turnkey PCB Assembly/);
-  assert.match(data, /Prototype & Low-volume PCBA/);
-  assert.match(data, /SMT, THT & BGA Capabilities/);
-  assert.match(data, /EMS & Box Build/);
-  assert.match(data, /PCB Fabrication/);
-  assert.match(data, /Component Sourcing & BOM Review/);
-  assert.match(data, /Testing & Quality Control/);
-  assert.doesNotMatch(data, /EMS Manufacturing/);
-  assert.doesNotMatch(data, /Box Build Assembly/);
-  assert.doesNotMatch(data, /DFM \/ BOM Review/);
-});
-
-test("homepage composes the required client-review demo sections", () => {
-  const home = readFileSync(join(root, "app/page.tsx"), "utf8");
-
-  for (const component of [
-    "Hero",
-    "BrandPositioning",
-    "ServicesOverview",
-    "PCBAServiceBlock",
-    "PCBAChildServicesBlock",
-    "EMSBoxBuildBlock",
-    "SupportCapabilitiesBlock",
-    "BrandClarificationTeaser",
-    "OfficialResourcesTeaser",
-    "FinalCTA",
-  ]) {
-    assert.match(home, new RegExp(`<${component} ?/?>`), `${component} should render on the homepage`);
+  for (const route of expectedRoutes) {
+    assert.match(data, new RegExp(`href: "${route.replaceAll("/", "\\/")}"`), `${route} should be present`);
   }
 });
 
-test("placeholder pages include summaries and the exact Stage 3 copy note", () => {
+test("header navigation exposes the required dropdown groups", () => {
   const data = readFileSync(join(root, "lib/site-data.ts"), "utf8");
-  const placeholder = readFileSync(join(root, "components/shared/PlaceholderPage.tsx"), "utf8");
+  const header = readFileSync(join(root, "components/site/Header.tsx"), "utf8");
 
-  assert.match(data, /summary:/, "placeholder page data should include public-safe summaries");
-  assert.match(placeholder, /summary/, "PlaceholderPage should render each page summary");
-  assert.match(placeholder, /Final copy will be created in Stage 3\./);
-});
-
-test("footer includes the required contact link group", () => {
-  const data = readFileSync(join(root, "lib/site-data.ts"), "utf8");
-
-  assert.match(data, /title: "Contact"/);
-  assert.match(data, /Email placeholder/);
-  assert.match(data, /Quote form/);
-  assert.match(data, /Location \/ contact details placeholder/);
-});
-
-test("required internal links from the structure lock are represented", () => {
-  const data = readFileSync(join(root, "lib/site-data.ts"), "utf8");
-
-  for (const route of [
-    "routes.pcbFabrication",
-    "routes.contact",
-    "routes.brandClarification",
-    "routes.officialResources",
-  ]) {
-    assert.match(data, new RegExp(route), `${route} should appear in related links`);
+  for (const label of expectedNavLabels) {
+    assert.match(data, new RegExp(`label: "${label}"`), `${label} should be in nav data`);
   }
+
+  assert.match(header, /navItems/);
+  assert.match(header, /NavigationChildren/);
+  assert.match(header, /Request a Quote/);
 });
 
-test("visible scaffold source does not retain old flat service labels", () => {
-  const source = readSourceFiles("app")
-    .concat(readSourceFiles("components"), readSourceFiles("lib"))
+test("footer navigation exposes the required footer groups", () => {
+  const data = readFileSync(join(root, "lib/site-data.ts"), "utf8");
+  const footer = readFileSync(join(root, "components/site/Footer.tsx"), "utf8");
+
+  for (const group of expectedFooterGroups) {
+    assert.match(data, new RegExp(`title: "${group}"`), `${group} footer group should exist`);
+  }
+
+  assert.match(footer, /footerGroups/);
+});
+
+test("routes render nav-only PlaceholderPage content instead of full page content", () => {
+  const appSource = readSourceFiles("app")
     .map((file) => readFileSync(join(root, file), "utf8"))
     .join("\n");
 
-  assert.doesNotMatch(source, /EMS Manufacturing/);
-  assert.doesNotMatch(source, /Box Build Assembly/);
-  assert.doesNotMatch(source, /DFM \/ BOM Review/);
+  assert.match(readFileSync(join(root, "app/page.tsx"), "utf8"), /PlaceholderPage/);
+  assert.doesNotMatch(appSource, /Static form placeholder/);
+  assert.doesNotMatch(appSource, /Hero \/>/);
+  assert.doesNotMatch(appSource, /FinalCTA \/>/);
+});
+
+test("placeholder data includes page role and related links", () => {
+  const data = readFileSync(join(root, "lib/site-data.ts"), "utf8");
+  const placeholder = readFileSync(join(root, "components/shared/PlaceholderPage.tsx"), "utf8");
+
+  assert.match(data, /role:/);
+  assert.match(data, /relatedLinks:/);
+  assert.match(placeholder, /role/);
+  assert.match(placeholder, /relatedLinks/);
 });

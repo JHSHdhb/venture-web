@@ -13,7 +13,7 @@ export type ServiceItem = SiteLink & {
   children?: ServiceItem[];
 };
 
-export type PlaceholderPageData = {
+export type PlaceholderPageData = SiteLink & {
   title: string;
   role: string;
   summary: string;
@@ -24,6 +24,10 @@ export type PlaceholderPageData = {
 export const routes = {
   home: "/",
   about: "/about/",
+  brandClarification: "/brand/venture-electronics-vs-venture-pcb-pcba/",
+  officialResources: "/official-resources/",
+  companyOverview: "/about/company-overview/",
+  news: "/about/news/",
   services: "/services/",
   pcba: "/services/pcb-assembly-pcba/",
   turnkey: "/services/pcb-assembly-pcba/turnkey-pcb-assembly/",
@@ -32,344 +36,466 @@ export const routes = {
   emsBoxBuild: "/services/ems-box-build/",
   pcbFabrication: "/services/pcb-fabrication/",
   componentSourcingBomReview: "/services/component-sourcing-bom-review/",
-  testingQualityControl: "/services/testing-quality-control/",
-  brandClarification: "/brand/venture-electronics-vs-venture-pcb-pcba/",
-  officialResources: "/official-resources/",
+  qualityTesting: "/quality-testing/",
+  testingQualityControl: "/quality-testing/testing-quality-control/",
+  electricalTesting: "/quality-testing/electrical-testing/",
+  productReliabilityTesting: "/quality-testing/product-reliability-testing/",
+  testingInspectionEquipment: "/quality-testing/testing-inspection-equipment/",
+  qualityManagementSystem: "/quality-testing/quality-management-system/",
+  packagingLogistics: "/quality-testing/packaging-logistics/",
+  engineeringSupport: "/engineering-support/",
+  smtThtBgaProcessSupport: "/engineering-support/smt-tht-bga-process-support/",
+  pcbTestFixtureSupport: "/engineering-support/pcb-test-fixture-support/",
+  icProgrammingSupport: "/engineering-support/ic-programming-support/",
+  industries: "/industries/",
+  industrialElectronics: "/industries/industrial-electronics/",
+  iotSmartDevices: "/industries/iot-smart-devices/",
+  consumerElectronics: "/industries/consumer-electronics/",
+  energyPowerElectronics: "/industries/energy-power-electronics/",
+  automationControl: "/industries/automation-control/",
+  communicationEquipment: "/industries/communication-equipment/",
+  resources: "/resources/",
   faq: "/resources/faq/",
+  blog: "/resources/blog/",
+  guides: "/resources/guides/",
+  downloads: "/resources/downloads/",
+  catalog: "/resources/catalog/",
+  glossary: "/resources/glossary/",
+  caseStudies: "/resources/case-studies/",
   contact: "/contact/",
+  requestQuote: "/request-a-quote/",
+  thankYou: "/thank-you/",
+  privacyPolicy: "/privacy-policy/",
+  terms: "/terms/",
+  sitemap: "/sitemap/",
 };
+
+export const sitemapLinks: SiteLink[] = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about/" },
+  {
+    label: "Venture Electronics vs Venture PCB / Venture PCBA",
+    href: "/brand/venture-electronics-vs-venture-pcb-pcba/",
+  },
+  { label: "Official Resources", href: "/official-resources/" },
+  { label: "Company Overview", href: "/about/company-overview/" },
+  { label: "News", href: "/about/news/" },
+  { label: "Services", href: "/services/" },
+  { label: "PCB Assembly / PCBA", href: "/services/pcb-assembly-pcba/" },
+  { label: "Turnkey PCB Assembly", href: "/services/pcb-assembly-pcba/turnkey-pcb-assembly/" },
+  { label: "Prototype & Low-volume PCBA", href: "/services/pcb-assembly-pcba/prototype-low-volume-pcba/" },
+  { label: "SMT, THT & BGA Capabilities", href: "/services/pcb-assembly-pcba/smt-tht-bga-capabilities/" },
+  { label: "EMS & Box Build", href: "/services/ems-box-build/" },
+  { label: "PCB Fabrication", href: "/services/pcb-fabrication/" },
+  { label: "Component Sourcing & BOM Review", href: "/services/component-sourcing-bom-review/" },
+  { label: "Quality & Testing", href: "/quality-testing/" },
+  { label: "Testing & Quality Control", href: "/quality-testing/testing-quality-control/" },
+  { label: "Electrical Testing", href: "/quality-testing/electrical-testing/" },
+  { label: "Product Reliability Testing", href: "/quality-testing/product-reliability-testing/" },
+  { label: "Testing & Inspection Equipment", href: "/quality-testing/testing-inspection-equipment/" },
+  { label: "Quality Management System", href: "/quality-testing/quality-management-system/" },
+  { label: "Packaging & Logistics", href: "/quality-testing/packaging-logistics/" },
+  { label: "Engineering Support", href: "/engineering-support/" },
+  { label: "SMT, THT & BGA Process Support", href: "/engineering-support/smt-tht-bga-process-support/" },
+  { label: "PCB Test Fixture Support", href: "/engineering-support/pcb-test-fixture-support/" },
+  { label: "IC Programming Support", href: "/engineering-support/ic-programming-support/" },
+  { label: "Industries", href: "/industries/" },
+  { label: "Industrial Electronics", href: "/industries/industrial-electronics/" },
+  { label: "IoT & Smart Devices", href: "/industries/iot-smart-devices/" },
+  { label: "Consumer Electronics", href: "/industries/consumer-electronics/" },
+  { label: "Energy & Power Electronics", href: "/industries/energy-power-electronics/" },
+  { label: "Automation & Control", href: "/industries/automation-control/" },
+  { label: "Communication Equipment", href: "/industries/communication-equipment/" },
+  { label: "Resources", href: "/resources/" },
+  { label: "FAQ", href: "/resources/faq/" },
+  { label: "Blog", href: "/resources/blog/" },
+  { label: "Guides", href: "/resources/guides/" },
+  { label: "Downloads", href: "/resources/downloads/" },
+  { label: "Catalog", href: "/resources/catalog/" },
+  { label: "Glossary", href: "/resources/glossary/" },
+  { label: "Case Studies", href: "/resources/case-studies/" },
+  { label: "Contact", href: "/contact/" },
+  { label: "Request a Quote", href: "/request-a-quote/" },
+  { label: "Thank You", href: "/thank-you/" },
+  { label: "Privacy Policy", href: "/privacy-policy/" },
+  { label: "Terms", href: "/terms/" },
+  { label: "Sitemap", href: "/sitemap/" },
+];
+
+const aboutLinks: NavItem[] = [
+  { label: "About", href: routes.about },
+  { label: "Venture Electronics vs Venture PCB / Venture PCBA", href: routes.brandClarification },
+  { label: "Official Resources", href: routes.officialResources },
+  { label: "Company Overview", href: routes.companyOverview },
+  { label: "News", href: routes.news },
+];
+
+const pcbaChildren: ServiceItem[] = [
+  {
+    label: "Turnkey PCB Assembly",
+    href: routes.turnkey,
+    role: "PCBA child route for full-process delivery",
+    description: "Nav-only placeholder for turnkey PCB assembly under PCB Assembly / PCBA.",
+  },
+  {
+    label: "Prototype & Low-volume PCBA",
+    href: routes.prototype,
+    role: "PCBA child route for prototype and low-volume builds",
+    description: "Nav-only placeholder for prototype and low-volume PCBA under PCB Assembly / PCBA.",
+  },
+  {
+    label: "SMT, THT & BGA Capabilities",
+    href: routes.smtThtBga,
+    role: "PCBA child route for assembly capability navigation",
+    description: "Nav-only placeholder for SMT, THT, and BGA capability routing under PCB Assembly / PCBA.",
+  },
+];
 
 export const serviceHierarchy: ServiceItem[] = [
   {
     label: "PCB Assembly / PCBA",
     href: routes.pcba,
     role: "Primary service category and main conversion entry",
-    description:
-      "The PCBA-first entry point for buyers who need assembly support, quote guidance, and a clear path into related delivery models.",
-    children: [
-      {
-        label: "Turnkey PCB Assembly",
-        href: routes.turnkey,
-        role: "PCBA child page for full-process delivery",
-        description:
-          "A child route for BOM, component sourcing, assembly, testing, and project coordination discussions.",
-      },
-      {
-        label: "Prototype & Low-volume PCBA",
-        href: routes.prototype,
-        role: "PCBA child page for early-stage and small-batch projects",
-        description:
-          "A child route for prototype, low-volume, iteration, and early project-stage assembly questions.",
-      },
-      {
-        label: "SMT, THT & BGA Capabilities",
-        href: routes.smtThtBga,
-        role: "PCBA child page for assembly process and technical capability",
-        description:
-          "A child route for assembly method discussion, manufacturability notes, and evidence-gated technical details.",
-      },
-    ],
+    description: "Nav-only placeholder for the primary PCB Assembly / PCBA service route.",
+    children: pcbaChildren,
   },
   {
     label: "EMS & Box Build",
     href: routes.emsBoxBuild,
-    role: "System-level manufacturing capability",
-    description:
-      "A higher-level service route for system manufacturing support from PCBA into sourcing, testing, final assembly, and project follow-through.",
+    role: "System-level manufacturing service route",
+    description: "Nav-only placeholder for EMS and Box Build service navigation.",
   },
   {
     label: "PCB Fabrication",
     href: routes.pcbFabrication,
-    role: "Supporting front-end bare board manufacturing capability",
-    description:
-      "A supporting route that explains bare-board fabrication as a foundation for PCBA projects, not the lead brand position.",
+    role: "Supporting bare-board service route",
+    description: "Nav-only placeholder for PCB fabrication as a supporting service.",
   },
   {
     label: "Component Sourcing & BOM Review",
     href: routes.componentSourcingBomReview,
-    role: "Supply-chain and engineering support capability",
-    description:
-      "A combined route for BOM review, sourcing coordination, alternative part discussion, and turnkey or EMS project support.",
+    role: "Supply-chain and engineering support service route",
+    description: "Nav-only placeholder for component sourcing and BOM review.",
   },
-  {
-    label: "Testing & Quality Control",
-    href: routes.testingQualityControl,
-    role: "Cross-service trust and quality capability",
-    description:
-      "A cross-service route for testing, inspection, quality control, and evidence-needed notes without unsupported compliance claims.",
-  },
+];
+
+const qualityTestingLinks: NavItem[] = [
+  { label: "Testing & Quality Control", href: routes.testingQualityControl },
+  { label: "Electrical Testing", href: routes.electricalTesting },
+  { label: "Product Reliability Testing", href: routes.productReliabilityTesting },
+  { label: "Testing & Inspection Equipment", href: routes.testingInspectionEquipment },
+  { label: "Quality Management System", href: routes.qualityManagementSystem },
+  { label: "Packaging & Logistics", href: routes.packagingLogistics },
+];
+
+const engineeringSupportLinks: NavItem[] = [
+  { label: "SMT, THT & BGA Process Support", href: routes.smtThtBgaProcessSupport },
+  { label: "PCB Test Fixture Support", href: routes.pcbTestFixtureSupport },
+  { label: "IC Programming Support", href: routes.icProgrammingSupport },
+];
+
+const industryLinks: NavItem[] = [
+  { label: "Industrial Electronics", href: routes.industrialElectronics },
+  { label: "IoT & Smart Devices", href: routes.iotSmartDevices },
+  { label: "Consumer Electronics", href: routes.consumerElectronics },
+  { label: "Energy & Power Electronics", href: routes.energyPowerElectronics },
+  { label: "Automation & Control", href: routes.automationControl },
+  { label: "Communication Equipment", href: routes.communicationEquipment },
+];
+
+const resourceLinks: NavItem[] = [
+  { label: "FAQ", href: routes.faq },
+  { label: "Blog", href: routes.blog },
+  { label: "Guides", href: routes.guides },
+  { label: "Downloads", href: routes.downloads },
+  { label: "Catalog", href: routes.catalog },
+  { label: "Glossary", href: routes.glossary },
+  { label: "Case Studies", href: routes.caseStudies },
 ];
 
 export const navItems: NavItem[] = [
   { label: "Home", href: routes.home },
+  { label: "About", href: routes.about, children: aboutLinks },
   {
     label: "Services",
     href: routes.services,
     children: serviceHierarchy.map((service) => ({
       label: service.label,
       href: service.href,
-      children: service.children?.map((child) => ({
-        label: child.label,
-        href: child.href,
-      })),
+      children: service.children?.map((child) => ({ label: child.label, href: child.href })),
     })),
   },
-  {
-    label: "About",
-    href: routes.about,
-    children: [
-      { label: "About Venture Electronics", href: routes.about },
-      {
-        label: "Venture Electronics vs Venture PCB / Venture PCBA",
-        href: routes.brandClarification,
-      },
-      { label: "Official Resources / Online Presence", href: routes.officialResources },
-    ],
-  },
-  {
-    label: "Resources",
-    href: routes.faq,
-    children: [{ label: "FAQ / Resources", href: routes.faq }],
-  },
+  { label: "Quality & Testing", href: routes.qualityTesting, children: qualityTestingLinks },
+  { label: "Engineering Support", href: routes.engineeringSupport, children: engineeringSupportLinks },
+  { label: "Industries", href: routes.industries, children: industryLinks },
+  { label: "Resources", href: routes.resources, children: resourceLinks },
+  { label: "Contact", href: routes.contact },
 ];
 
 export const footerGroups: { title: string; links: SiteLink[] }[] = [
-  {
-    title: "Company",
-    links: [
-      { label: "About Venture Electronics", href: routes.about },
-      { label: "Brand & Business Line Clarification", href: routes.brandClarification },
-      { label: "Official Resources / Online Presence", href: routes.officialResources },
-      { label: "Contact Venture Electronics", href: routes.contact },
-    ],
-  },
+  { title: "About", links: aboutLinks },
   {
     title: "Services",
-    links: [
-      { label: "PCB Assembly / PCBA", href: routes.pcba },
-      { label: "Turnkey PCB Assembly", href: routes.turnkey },
-      { label: "Prototype & Low-volume PCBA", href: routes.prototype },
-      { label: "SMT, THT & BGA Capabilities", href: routes.smtThtBga },
-      { label: "EMS & Box Build", href: routes.emsBoxBuild },
-      { label: "PCB Fabrication", href: routes.pcbFabrication },
-      { label: "Component Sourcing & BOM Review", href: routes.componentSourcingBomReview },
-      { label: "Testing & Quality Control", href: routes.testingQualityControl },
-    ],
+    links: serviceHierarchy.flatMap((service) => [
+      { label: service.label, href: service.href },
+      ...(service.children?.map((child) => ({ label: child.label, href: child.href })) ?? []),
+    ]),
   },
-  {
-    title: "Resources",
-    links: [
-      { label: "FAQ / Resources", href: routes.faq },
-      { label: "Request a Quote", href: routes.contact },
-    ],
-  },
-  {
-    title: "Official Channels",
-    links: [
-      { label: "Main Website placeholder", href: routes.officialResources },
-      { label: "PCBA-focused Website placeholder", href: routes.officialResources },
-      { label: "LinkedIn placeholder", href: routes.officialResources },
-      { label: "YouTube placeholder", href: routes.officialResources },
-      { label: "Other confirmed official channels only", href: routes.officialResources },
-    ],
-  },
+  { title: "Quality & Testing", links: qualityTestingLinks },
+  { title: "Engineering Support", links: engineeringSupportLinks },
+  { title: "Industries", links: industryLinks },
+  { title: "Resources", links: resourceLinks },
   {
     title: "Contact",
     links: [
-      { label: "Email placeholder", href: routes.contact },
-      { label: "Quote form", href: routes.contact },
-      { label: "Location / contact details placeholder", href: routes.contact },
+      { label: "Contact", href: routes.contact },
+      { label: "Request a Quote", href: routes.requestQuote },
+      { label: "Thank You", href: routes.thankYou },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { label: "Privacy Policy", href: routes.privacyPolicy },
+      { label: "Terms", href: routes.terms },
+      { label: "Sitemap", href: routes.sitemap },
     ],
   },
 ];
 
 export const supportCapabilities = serviceHierarchy.slice(2);
 
-export const placeholderPages: Record<string, PlaceholderPageData> = {
-  about: {
-    title: "About Venture Electronics",
-    role: "Brand authority page explaining Venture Electronics, its service scope, and public-safe company positioning.",
-    summary:
-      "This placeholder will introduce Venture Electronics as the mother brand and keep detailed company facts evidence-gated for later review.",
-    cta: { label: "Contact Venture", href: routes.contact },
-    relatedLinks: [
-      { label: "Services", href: routes.services },
-      { label: "Brand Clarification", href: routes.brandClarification },
+function createPlaceholderPage(
+  label: string,
+  href: string,
+  role: string,
+  relatedLinks: SiteLink[],
+): PlaceholderPageData {
+  return {
+    label,
+    title: label,
+    href,
+    role,
+    summary: `Nav-only placeholder for ${label}. This page exists to validate sitemap coverage, header navigation, footer grouping, and route wiring.`,
+    cta: { label: "Request a Quote", href: routes.requestQuote },
+    relatedLinks,
+  };
+}
+
+const topLevelLinks: SiteLink[] = [
+  { label: "Home", href: routes.home },
+  { label: "About", href: routes.about },
+  { label: "Services", href: routes.services },
+  { label: "Quality & Testing", href: routes.qualityTesting },
+  { label: "Engineering Support", href: routes.engineeringSupport },
+  { label: "Industries", href: routes.industries },
+  { label: "Resources", href: routes.resources },
+  { label: "Contact", href: routes.contact },
+];
+
+export const placeholderPages = {
+  home: createPlaceholderPage("Home", routes.home, "Homepage placeholder for validating the nav-only scaffold.", [
+    { label: "Services", href: routes.services },
+    { label: "Quality & Testing", href: routes.qualityTesting },
+    { label: "Request a Quote", href: routes.requestQuote },
+  ]),
+  about: createPlaceholderPage("About", routes.about, "About hub placeholder for company and authority routes.", aboutLinks),
+  brandClarification: createPlaceholderPage(
+    "Venture Electronics vs Venture PCB / Venture PCBA",
+    routes.brandClarification,
+    "Brand relationship placeholder under the About navigation group.",
+    [
+      { label: "About", href: routes.about },
       { label: "Official Resources", href: routes.officialResources },
-    ],
-  },
-  services: {
-    title: "Services",
-    role: "Service hub showing the updated PCBA-first hierarchy and helping buyers choose the right route.",
-    summary:
-      "This placeholder presents the locked service structure with PCB Assembly / PCBA first, followed by PCBA child routes and supporting capabilities.",
-    cta: { label: "Explore PCB Assembly / PCBA", href: routes.pcba },
-    relatedLinks: serviceHierarchy.map(({ label, href }) => ({ label, href })),
-  },
-  pcba: {
-    title: "PCB Assembly / PCBA",
-    role: "Primary service category and main conversion entry for the Venture Electronics first-build site structure.",
-    summary:
-      "This placeholder will explain PCBA quote context, assembly support, and related delivery paths without unsupported capacity or compliance claims.",
-    cta: { label: "Request PCBA Quote", href: routes.contact },
-    relatedLinks: [
-      { label: "Turnkey PCB Assembly", href: routes.turnkey },
-      { label: "Prototype & Low-volume PCBA", href: routes.prototype },
-      { label: "SMT, THT & BGA Capabilities", href: routes.smtThtBga },
-      { label: "Component Sourcing & BOM Review", href: routes.componentSourcingBomReview },
-      { label: "Testing & Quality Control", href: routes.testingQualityControl },
-      { label: "PCB Fabrication", href: routes.pcbFabrication },
-      { label: "Contact / Request a Quote", href: routes.contact },
-      { label: "FAQ / Resources", href: routes.faq },
-    ],
-  },
-  turnkey: {
-    title: "Turnkey PCB Assembly",
-    role: "PCBA child page for full-process delivery, from BOM and sourcing coordination through assembly and testing discussions.",
-    summary:
-      "This placeholder frames turnkey PCB assembly as a PCBA child route for BOM, sourcing, assembly, testing, and project coordination discussion.",
-    cta: { label: "Submit BOM / Gerber Placeholder", href: routes.contact },
-    relatedLinks: [
-      { label: "PCB Assembly / PCBA", href: routes.pcba },
-      { label: "Component Sourcing & BOM Review", href: routes.componentSourcingBomReview },
-      { label: "Testing & Quality Control", href: routes.testingQualityControl },
-      { label: "EMS & Box Build", href: routes.emsBoxBuild },
-      { label: "Contact / Request a Quote", href: routes.contact },
-    ],
-  },
-  prototype: {
-    title: "Prototype & Low-volume PCBA",
-    role: "PCBA child page for early-stage builds, small-batch projects, iteration, and quote-stage project discussion.",
-    summary:
-      "This placeholder covers prototype and low-volume PCBA intent while leaving final process, timing, and capability claims for Stage 3.",
-    cta: { label: "Request Prototype Quote", href: routes.contact },
-    relatedLinks: [
-      { label: "PCB Assembly / PCBA", href: routes.pcba },
-      { label: "Turnkey PCB Assembly", href: routes.turnkey },
-      { label: "SMT, THT & BGA Capabilities", href: routes.smtThtBga },
-      { label: "Testing & Quality Control", href: routes.testingQualityControl },
-    ],
-  },
-  smtThtBga: {
-    title: "SMT, THT & BGA Capabilities",
-    role: "PCBA child page for assembly process and technical capability, with final capability claims reserved for Stage 3 evidence review.",
-    summary:
-      "This placeholder introduces assembly-process topics for SMT, THT, and BGA as PCBA support content with evidence-needed technical details.",
-    cta: { label: "Discuss Assembly Requirements", href: routes.contact },
-    relatedLinks: [
-      { label: "PCB Assembly / PCBA", href: routes.pcba },
-      { label: "Turnkey PCB Assembly", href: routes.turnkey },
-      { label: "Prototype & Low-volume PCBA", href: routes.prototype },
-      { label: "Testing & Quality Control", href: routes.testingQualityControl },
-      { label: "Component Sourcing & BOM Review", href: routes.componentSourcingBomReview },
-    ],
-  },
-  emsBoxBuild: {
-    title: "EMS & Box Build",
-    role: "System-level manufacturing capability connecting PCBA, sourcing, testing, final assembly, and project coordination.",
-    summary:
-      "This placeholder keeps EMS and Box Build combined as a system-level manufacturing route connected to PCBA, sourcing, testing, and fabrication support.",
-    cta: { label: "Discuss EMS / Box Build Project", href: routes.contact },
-    relatedLinks: [
-      { label: "PCB Assembly / PCBA", href: routes.pcba },
-      { label: "Turnkey PCB Assembly", href: routes.turnkey },
-      { label: "Component Sourcing & BOM Review", href: routes.componentSourcingBomReview },
-      { label: "Testing & Quality Control", href: routes.testingQualityControl },
-      { label: "PCB Fabrication", href: routes.pcbFabrication },
-      { label: "Contact / Request a Quote", href: routes.contact },
-    ],
-  },
-  pcbFabrication: {
-    title: "PCB Fabrication",
-    role: "Supporting front-end bare board manufacturing capability that supports PCBA rather than replacing PCBA as the primary service entry.",
-    summary:
-      "This placeholder explains PCB fabrication as supporting bare-board context for PCBA projects, not as the top-level brand position.",
-    cta: { label: "Include PCB Fabrication in Quote", href: routes.contact },
-    relatedLinks: [
-      { label: "PCB Assembly / PCBA", href: routes.pcba },
-      { label: "Turnkey PCB Assembly", href: routes.turnkey },
-      { label: "Component Sourcing & BOM Review", href: routes.componentSourcingBomReview },
-      { label: "Testing & Quality Control", href: routes.testingQualityControl },
-    ],
-  },
-  componentSourcingBomReview: {
-    title: "Component Sourcing & BOM Review",
-    role: "Supply-chain and engineering support capability for turnkey PCBA and EMS projects.",
-    summary:
-      "This placeholder combines sourcing and BOM review as one support route for quote readiness, turnkey PCBA, and EMS discussions.",
-    cta: { label: "Send BOM for Review", href: routes.contact },
-    relatedLinks: [
-      { label: "Turnkey PCB Assembly", href: routes.turnkey },
-      { label: "EMS & Box Build", href: routes.emsBoxBuild },
-      { label: "PCB Assembly / PCBA", href: routes.pcba },
-      { label: "Testing & Quality Control", href: routes.testingQualityControl },
-    ],
-  },
-  testingQualityControl: {
-    title: "Testing & Quality Control",
-    role: "Cross-service trust and quality capability spanning PCBA, turnkey, prototype, assembly process, and EMS discussions.",
-    summary:
-      "This placeholder presents testing and quality control as cross-service trust infrastructure while reserving equipment and standards claims for evidence review.",
-    cta: { label: "Discuss Testing Requirements", href: routes.contact },
-    relatedLinks: [
-      { label: "PCB Assembly / PCBA", href: routes.pcba },
-      { label: "Turnkey PCB Assembly", href: routes.turnkey },
-      { label: "Prototype & Low-volume PCBA", href: routes.prototype },
-      { label: "SMT, THT & BGA Capabilities", href: routes.smtThtBga },
-      { label: "EMS & Box Build", href: routes.emsBoxBuild },
-    ],
-  },
-  brandClarification: {
-    title: "Venture Electronics vs Venture PCB / Venture PCBA",
-    role: "Brand/entity relationship explanation page for Venture Electronics, Venture PCB, Venture PCBA, official domains, and business-line wording.",
-    summary:
-      "This placeholder clarifies Venture Electronics as the mother brand and treats Venture PCB and Venture PCBA as service or search-entry concepts.",
-    cta: { label: "View Official Resources", href: routes.officialResources },
-    relatedLinks: [
-      { label: "About Venture Electronics", href: routes.about },
-      { label: "Official Resources", href: routes.officialResources },
-      { label: "Services", href: routes.services },
-      { label: "PCB Assembly / PCBA", href: routes.pcba },
       { label: "Contact", href: routes.contact },
     ],
-  },
-  officialResources: {
-    title: "Official Resources / Online Presence",
-    role: "Official channels and online presence page for confirmed Venture Electronics websites, focused sites, and public channels.",
-    summary:
-      "This placeholder will list only confirmed official domains and channels, with unconfirmed accounts excluded from official-source treatment.",
-    cta: { label: "Contact Official Team", href: routes.contact },
-    relatedLinks: [
+  ),
+  officialResources: createPlaceholderPage(
+    "Official Resources",
+    routes.officialResources,
+    "Official online presence placeholder under the About navigation group.",
+    [
+      { label: "About", href: routes.about },
       { label: "Brand Clarification", href: routes.brandClarification },
-      { label: "About Venture Electronics", href: routes.about },
-      { label: "Services", href: routes.services },
       { label: "Contact", href: routes.contact },
     ],
-  },
-  faq: {
-    title: "FAQ / Resources",
-    role: "GEO and trust page for buyer questions about PCBA quotes, BOM review, turnkey support, testing, and brand relationship topics.",
-    summary:
-      "This placeholder reserves a crawlable FAQ area for buyer questions and AI-readable support content after final copy is written.",
-    cta: { label: "Request a Quote", href: routes.contact },
-    relatedLinks: [
-      { label: "PCB Assembly / PCBA", href: routes.pcba },
-      { label: "Component Sourcing & BOM Review", href: routes.componentSourcingBomReview },
-      { label: "Testing & Quality Control", href: routes.testingQualityControl },
-      { label: "Official Resources", href: routes.officialResources },
-    ],
-  },
-  contact: {
-    title: "Contact / Request a Quote",
-    role: "Unified static RFQ placeholder page for project files, quote context, and contact routing. This demo does not submit data.",
-    summary:
-      "This placeholder gives buyers a visible RFQ path for service interest, project files, and project context without implementing form submission.",
-    cta: { label: "Explore Services", href: routes.services },
-    relatedLinks: [
-      { label: "PCB Assembly / PCBA", href: routes.pcba },
+  ),
+  companyOverview: createPlaceholderPage(
+    "Company Overview",
+    routes.companyOverview,
+    "Company overview placeholder under the About navigation group.",
+    aboutLinks,
+  ),
+  news: createPlaceholderPage("News", routes.news, "News placeholder under the About navigation group.", aboutLinks),
+  services: createPlaceholderPage("Services", routes.services, "Services hub placeholder for the service dropdown.", serviceHierarchy),
+  pcba: createPlaceholderPage(
+    "PCB Assembly / PCBA",
+    routes.pcba,
+    "Primary service placeholder with nested PCBA child routes.",
+    pcbaChildren,
+  ),
+  turnkey: createPlaceholderPage("Turnkey PCB Assembly", routes.turnkey, "PCBA child route placeholder.", [
+    { label: "PCB Assembly / PCBA", href: routes.pcba },
+    { label: "Component Sourcing & BOM Review", href: routes.componentSourcingBomReview },
+    { label: "Request a Quote", href: routes.requestQuote },
+  ]),
+  prototype: createPlaceholderPage("Prototype & Low-volume PCBA", routes.prototype, "PCBA child route placeholder.", [
+    { label: "PCB Assembly / PCBA", href: routes.pcba },
+    { label: "SMT, THT & BGA Capabilities", href: routes.smtThtBga },
+    { label: "Request a Quote", href: routes.requestQuote },
+  ]),
+  smtThtBga: createPlaceholderPage("SMT, THT & BGA Capabilities", routes.smtThtBga, "PCBA child route placeholder.", [
+    { label: "PCB Assembly / PCBA", href: routes.pcba },
+    { label: "SMT, THT & BGA Process Support", href: routes.smtThtBgaProcessSupport },
+    { label: "Request a Quote", href: routes.requestQuote },
+  ]),
+  emsBoxBuild: createPlaceholderPage("EMS & Box Build", routes.emsBoxBuild, "Service route placeholder.", [
+    { label: "Services", href: routes.services },
+    { label: "PCB Assembly / PCBA", href: routes.pcba },
+    { label: "Request a Quote", href: routes.requestQuote },
+  ]),
+  pcbFabrication: createPlaceholderPage("PCB Fabrication", routes.pcbFabrication, "Service route placeholder.", [
+    { label: "Services", href: routes.services },
+    { label: "PCB Assembly / PCBA", href: routes.pcba },
+    { label: "Request a Quote", href: routes.requestQuote },
+  ]),
+  componentSourcingBomReview: createPlaceholderPage(
+    "Component Sourcing & BOM Review",
+    routes.componentSourcingBomReview,
+    "Service route placeholder.",
+    [
+      { label: "Services", href: routes.services },
       { label: "Turnkey PCB Assembly", href: routes.turnkey },
-      { label: "EMS & Box Build", href: routes.emsBoxBuild },
-      { label: "FAQ / Resources", href: routes.faq },
+      { label: "Request a Quote", href: routes.requestQuote },
     ],
-  },
+  ),
+  qualityTesting: createPlaceholderPage(
+    "Quality & Testing",
+    routes.qualityTesting,
+    "Quality and testing hub placeholder for the dropdown group.",
+    qualityTestingLinks,
+  ),
+  testingQualityControl: createPlaceholderPage(
+    "Testing & Quality Control",
+    routes.testingQualityControl,
+    "Quality and testing child route placeholder.",
+    qualityTestingLinks,
+  ),
+  electricalTesting: createPlaceholderPage(
+    "Electrical Testing",
+    routes.electricalTesting,
+    "Quality and testing child route placeholder.",
+    qualityTestingLinks,
+  ),
+  productReliabilityTesting: createPlaceholderPage(
+    "Product Reliability Testing",
+    routes.productReliabilityTesting,
+    "Quality and testing child route placeholder.",
+    qualityTestingLinks,
+  ),
+  testingInspectionEquipment: createPlaceholderPage(
+    "Testing & Inspection Equipment",
+    routes.testingInspectionEquipment,
+    "Quality and testing child route placeholder.",
+    qualityTestingLinks,
+  ),
+  qualityManagementSystem: createPlaceholderPage(
+    "Quality Management System",
+    routes.qualityManagementSystem,
+    "Quality and testing child route placeholder.",
+    qualityTestingLinks,
+  ),
+  packagingLogistics: createPlaceholderPage(
+    "Packaging & Logistics",
+    routes.packagingLogistics,
+    "Quality and testing child route placeholder.",
+    qualityTestingLinks,
+  ),
+  engineeringSupport: createPlaceholderPage(
+    "Engineering Support",
+    routes.engineeringSupport,
+    "Engineering support hub placeholder for the dropdown group.",
+    engineeringSupportLinks,
+  ),
+  smtThtBgaProcessSupport: createPlaceholderPage(
+    "SMT, THT & BGA Process Support",
+    routes.smtThtBgaProcessSupport,
+    "Engineering support child route placeholder.",
+    engineeringSupportLinks,
+  ),
+  pcbTestFixtureSupport: createPlaceholderPage(
+    "PCB Test Fixture Support",
+    routes.pcbTestFixtureSupport,
+    "Engineering support child route placeholder.",
+    engineeringSupportLinks,
+  ),
+  icProgrammingSupport: createPlaceholderPage(
+    "IC Programming Support",
+    routes.icProgrammingSupport,
+    "Engineering support child route placeholder.",
+    engineeringSupportLinks,
+  ),
+  industries: createPlaceholderPage("Industries", routes.industries, "Industries hub placeholder.", industryLinks),
+  industrialElectronics: createPlaceholderPage(
+    "Industrial Electronics",
+    routes.industrialElectronics,
+    "Industry child route placeholder.",
+    industryLinks,
+  ),
+  iotSmartDevices: createPlaceholderPage(
+    "IoT & Smart Devices",
+    routes.iotSmartDevices,
+    "Industry child route placeholder.",
+    industryLinks,
+  ),
+  consumerElectronics: createPlaceholderPage(
+    "Consumer Electronics",
+    routes.consumerElectronics,
+    "Industry child route placeholder.",
+    industryLinks,
+  ),
+  energyPowerElectronics: createPlaceholderPage(
+    "Energy & Power Electronics",
+    routes.energyPowerElectronics,
+    "Industry child route placeholder.",
+    industryLinks,
+  ),
+  automationControl: createPlaceholderPage(
+    "Automation & Control",
+    routes.automationControl,
+    "Industry child route placeholder.",
+    industryLinks,
+  ),
+  communicationEquipment: createPlaceholderPage(
+    "Communication Equipment",
+    routes.communicationEquipment,
+    "Industry child route placeholder.",
+    industryLinks,
+  ),
+  resources: createPlaceholderPage("Resources", routes.resources, "Resources hub placeholder.", resourceLinks),
+  faq: createPlaceholderPage("FAQ", routes.faq, "Resource child route placeholder.", resourceLinks),
+  blog: createPlaceholderPage("Blog", routes.blog, "Resource child route placeholder.", resourceLinks),
+  guides: createPlaceholderPage("Guides", routes.guides, "Resource child route placeholder.", resourceLinks),
+  downloads: createPlaceholderPage("Downloads", routes.downloads, "Resource child route placeholder.", resourceLinks),
+  catalog: createPlaceholderPage("Catalog", routes.catalog, "Resource child route placeholder.", resourceLinks),
+  glossary: createPlaceholderPage("Glossary", routes.glossary, "Resource child route placeholder.", resourceLinks),
+  caseStudies: createPlaceholderPage("Case Studies", routes.caseStudies, "Resource child route placeholder.", resourceLinks),
+  contact: createPlaceholderPage("Contact", routes.contact, "Contact route placeholder.", [
+    { label: "Request a Quote", href: routes.requestQuote },
+    { label: "Services", href: routes.services },
+    { label: "Resources", href: routes.resources },
+  ]),
+  requestQuote: createPlaceholderPage("Request a Quote", routes.requestQuote, "RFQ route placeholder.", [
+    { label: "Contact", href: routes.contact },
+    { label: "Services", href: routes.services },
+    { label: "Thank You", href: routes.thankYou },
+  ]),
+  thankYou: createPlaceholderPage("Thank You", routes.thankYou, "Post-submit placeholder route.", [
+    { label: "Home", href: routes.home },
+    { label: "Services", href: routes.services },
+    { label: "Contact", href: routes.contact },
+  ]),
+  privacyPolicy: createPlaceholderPage("Privacy Policy", routes.privacyPolicy, "Legal route placeholder.", topLevelLinks),
+  terms: createPlaceholderPage("Terms", routes.terms, "Legal route placeholder.", topLevelLinks),
+  sitemap: createPlaceholderPage("Sitemap", routes.sitemap, "Sitemap placeholder route.", sitemapLinks),
 };

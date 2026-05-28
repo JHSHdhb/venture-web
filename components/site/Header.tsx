@@ -37,7 +37,7 @@ export function Header() {
           </ul>
         </nav>
 
-        <CTAButton className="header-cta" href={routes.contact}>
+        <CTAButton className="header-cta" href={routes.requestQuote}>
           Request a Quote
         </CTAButton>
       </div>
