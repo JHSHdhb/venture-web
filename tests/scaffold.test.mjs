@@ -100,7 +100,7 @@ function readSourceFiles(dir) {
   });
 }
 
-test("creates every route placeholder in the nav-only sitemap", () => {
+test("creates every route file in the current sitemap", () => {
   for (const route of expectedRoutes) {
     const pageFile = routeToPageFile(route);
     assert.equal(existsSync(join(root, pageFile)), true, `${pageFile} should exist for ${route}`);
@@ -149,15 +149,59 @@ test("footer navigation exposes the required footer groups", () => {
   assert.match(footer, /footerGroups/);
 });
 
-test("routes render nav-only PlaceholderPage content instead of full page content", () => {
-  const appSource = readSourceFiles("app")
-    .map((file) => readFileSync(join(root, file), "utf8"))
-    .join("\n");
+test("homepage renders the low-fidelity buyer-router sections", () => {
+  const homepage = readFileSync(join(root, "app/page.tsx"), "utf8");
+  const componentNames = [
+    "HomeHero",
+    "VentureIdentityBlock",
+    "PCBAPrimaryBlock",
+    "PCBAPathCards",
+    "EMSBoxBuildBlock",
+    "SupportCapabilitiesBlock",
+    "RFQGuidanceBlock",
+    "BrandAuthorityTeaser",
+    "HomeFinalCTA",
+  ];
 
-  assert.match(readFileSync(join(root, "app/page.tsx"), "utf8"), /PlaceholderPage/);
+  for (const componentName of componentNames) {
+    assert.match(homepage, new RegExp(`import \\{ ${componentName} \\}`), `${componentName} should be imported`);
+    assert.match(homepage, new RegExp(`<${componentName} \\/>`), `${componentName} should render on the homepage`);
+  }
+
+  assert.doesNotMatch(homepage, /PlaceholderPage/);
+});
+
+test("non-home routes remain PlaceholderPage scaffolds", () => {
+  const routePageFiles = readSourceFiles("app").filter((file) => file.endsWith("page.tsx") && file !== "app/page.tsx");
+  const appSource = routePageFiles.map((file) => readFileSync(join(root, file), "utf8")).join("\n");
+
+  for (const pageFile of routePageFiles) {
+    assert.match(readFileSync(join(root, pageFile), "utf8"), /PlaceholderPage/, `${pageFile} should remain a placeholder`);
+  }
+
   assert.doesNotMatch(appSource, /Static form placeholder/);
-  assert.doesNotMatch(appSource, /Hero \/>/);
-  assert.doesNotMatch(appSource, /FinalCTA \/>/);
+  assert.doesNotMatch(appSource, /HomeHero/);
+  assert.doesNotMatch(appSource, /HomeFinalCTA/);
+});
+
+test("homepage source avoids unsupported manufacturing claims", () => {
+  const source = [
+    readFileSync(join(root, "app/page.tsx"), "utf8"),
+    ...readSourceFiles("components/home").map((file) => readFileSync(join(root, file), "utf8")),
+  ].join("\n");
+  const unsupportedClaims = [
+    /No\.1 PCB manufacturer/i,
+    /Certified global EMS leader/i,
+    /Trusted by top brands/i,
+    /Large-scale factory capacity/i,
+    /factory scale/i,
+    /production volume/i,
+    /industry compliance/i,
+  ];
+
+  for (const claim of unsupportedClaims) {
+    assert.doesNotMatch(source, claim);
+  }
 });
 
 test("placeholder data includes page role and related links", () => {
