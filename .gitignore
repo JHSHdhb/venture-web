@@ -24,6 +24,11 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# Local browser/debug artifacts
+.playwright-mcp/
+home-hero-top.png
+project-path-nolead.png
+
 # Editor and OS files
 .DS_Store
 .idea/
