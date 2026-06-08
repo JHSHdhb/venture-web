@@ -20,8 +20,8 @@ export function EMSBoxBuildBlock() {
             ))}
           </ol>
           <p className="dark-panel__note">
-            EMS & Box Build appears as a strategic capability, while PCB Assembly / PCBA remains the primary
-            homepage service entry.
+            EMS & Box Build appears as a strategic capability, while turnkey PCB Assembly / PCBA
+            remains the primary homepage inquiry entry.
           </p>
           <div className="section-actions">
             <CTAButton href={routes.emsBoxBuild}>View EMS & Box Build</CTAButton>

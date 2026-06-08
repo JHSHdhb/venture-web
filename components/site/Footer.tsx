@@ -24,8 +24,9 @@ export function Footer() {
           ))}
         </div>
         <p className="footer-note">
-          Public-safe demo copy only. Final factual claims, official channels, certifications, production
-          details, and regulated-industry statements require Stage 3 evidence review.
+          This preview uses public-safe draft wording. Final website content will be completed after
+          Venture confirms public facts, capabilities, certifications, official channels, and
+          evidence-backed claims.
         </p>
       </div>
     </footer>

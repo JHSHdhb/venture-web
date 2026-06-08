@@ -5,9 +5,9 @@ import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 
 export const metadata: Metadata = {
-  title: "Venture Electronics Demo Scaffold",
+  title: "Venture Electronics Website Architecture Preview",
   description:
-    "Client-review demo scaffold for the Venture Electronics Stage 2 site architecture and PCBA-first service hierarchy.",
+    "Initial website architecture preview for Venture Electronics, focused on turnkey PCBA, PCB assembly, EMS, quality, and official brand-resource clarification.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {

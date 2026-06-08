@@ -135,19 +135,19 @@ const pcbaChildren: ServiceItem[] = [
     label: "Turnkey PCB Assembly",
     href: routes.turnkey,
     role: "PCBA child route for full-process delivery",
-    description: "Nav-only placeholder for turnkey PCB assembly under PCB Assembly / PCBA.",
+    description: "Preview page for turnkey PCB assembly under PCB Assembly / PCBA.",
   },
   {
     label: "Prototype & Low-volume PCBA",
     href: routes.prototype,
     role: "PCBA child route for prototype and low-volume builds",
-    description: "Nav-only placeholder for prototype and low-volume PCBA under PCB Assembly / PCBA.",
+    description: "Preview page for prototype and low-volume PCBA under PCB Assembly / PCBA.",
   },
   {
     label: "SMT, THT & BGA Capabilities",
     href: routes.smtThtBga,
     role: "PCBA child route for assembly capability navigation",
-    description: "Nav-only placeholder for SMT, THT, and BGA capability routing under PCB Assembly / PCBA.",
+    description: "Preview page for SMT, THT, and BGA capabilities under PCB Assembly / PCBA.",
   },
 ];
 
@@ -156,26 +156,26 @@ export const serviceHierarchy: ServiceItem[] = [
     label: "PCB Assembly / PCBA",
     href: routes.pcba,
     role: "Primary service category and main conversion entry",
-    description: "Nav-only placeholder for the primary PCB Assembly / PCBA service route.",
+    description: "Preview page for the primary PCB Assembly / PCBA service route.",
     children: pcbaChildren,
   },
   {
     label: "EMS & Box Build",
     href: routes.emsBoxBuild,
     role: "System-level manufacturing service route",
-    description: "Nav-only placeholder for EMS and Box Build service navigation.",
+    description: "Preview page for EMS and Box Build service navigation.",
   },
   {
     label: "PCB Fabrication",
     href: routes.pcbFabrication,
     role: "Supporting bare-board service route",
-    description: "Nav-only placeholder for PCB fabrication as a supporting service.",
+    description: "Preview page for PCB fabrication as a supporting service.",
   },
   {
     label: "Component Sourcing & BOM Review",
     href: routes.componentSourcingBomReview,
     role: "Supply-chain and engineering support service route",
-    description: "Nav-only placeholder for component sourcing and BOM review.",
+    description: "Preview page for component sourcing and BOM review.",
   },
 ];
 
@@ -276,7 +276,8 @@ function createPlaceholderPage(
     title: label,
     href,
     role,
-    summary: `Nav-only placeholder for ${label}. This page exists to validate sitemap coverage, header navigation, footer grouping, and route wiring.`,
+    summary:
+      "This page is included in the proposed site architecture. Detailed copy and evidence-backed content will be developed after Venture confirms the relevant facts, capabilities, and public-safe claims.",
     cta: { label: "Request a Quote", href: routes.requestQuote },
     relatedLinks,
   };
@@ -294,16 +295,16 @@ const topLevelLinks: SiteLink[] = [
 ];
 
 export const placeholderPages = {
-  home: createPlaceholderPage("Home", routes.home, "Homepage placeholder for validating the nav-only scaffold.", [
+  home: createPlaceholderPage("Home", routes.home, "Homepage preview route for the proposed architecture.", [
     { label: "Services", href: routes.services },
     { label: "Quality & Testing", href: routes.qualityTesting },
     { label: "Request a Quote", href: routes.requestQuote },
   ]),
-  about: createPlaceholderPage("About", routes.about, "About hub placeholder for company and authority routes.", aboutLinks),
+  about: createPlaceholderPage("About", routes.about, "About hub preview for company and authority routes.", aboutLinks),
   brandClarification: createPlaceholderPage(
     "Venture Electronics vs Venture PCB / Venture PCBA",
     routes.brandClarification,
-    "Brand relationship placeholder under the About navigation group.",
+    "Brand relationship preview under the About navigation group.",
     [
       { label: "About", href: routes.about },
       { label: "Official Resources", href: routes.officialResources },
@@ -313,7 +314,7 @@ export const placeholderPages = {
   officialResources: createPlaceholderPage(
     "Official Resources",
     routes.officialResources,
-    "Official online presence placeholder under the About navigation group.",
+    "Official online presence preview under the About navigation group.",
     [
       { label: "About", href: routes.about },
       { label: "Brand Clarification", href: routes.brandClarification },
@@ -323,38 +324,38 @@ export const placeholderPages = {
   companyOverview: createPlaceholderPage(
     "Company Overview",
     routes.companyOverview,
-    "Company overview placeholder under the About navigation group.",
+    "Company overview preview under the About navigation group.",
     aboutLinks,
   ),
-  news: createPlaceholderPage("News", routes.news, "News placeholder under the About navigation group.", aboutLinks),
-  services: createPlaceholderPage("Services", routes.services, "Services hub placeholder for the service dropdown.", serviceHierarchy),
+  news: createPlaceholderPage("News", routes.news, "News preview under the About navigation group.", aboutLinks),
+  services: createPlaceholderPage("Services", routes.services, "Services hub preview for the service dropdown.", serviceHierarchy),
   pcba: createPlaceholderPage(
     "PCB Assembly / PCBA",
     routes.pcba,
-    "Primary service placeholder with nested PCBA child routes.",
+    "Primary service preview with nested PCBA child routes.",
     pcbaChildren,
   ),
-  turnkey: createPlaceholderPage("Turnkey PCB Assembly", routes.turnkey, "PCBA child route placeholder.", [
+  turnkey: createPlaceholderPage("Turnkey PCB Assembly", routes.turnkey, "PCBA child route preview.", [
     { label: "PCB Assembly / PCBA", href: routes.pcba },
     { label: "Component Sourcing & BOM Review", href: routes.componentSourcingBomReview },
     { label: "Request a Quote", href: routes.requestQuote },
   ]),
-  prototype: createPlaceholderPage("Prototype & Low-volume PCBA", routes.prototype, "PCBA child route placeholder.", [
+  prototype: createPlaceholderPage("Prototype & Low-volume PCBA", routes.prototype, "PCBA child route preview.", [
     { label: "PCB Assembly / PCBA", href: routes.pcba },
     { label: "SMT, THT & BGA Capabilities", href: routes.smtThtBga },
     { label: "Request a Quote", href: routes.requestQuote },
   ]),
-  smtThtBga: createPlaceholderPage("SMT, THT & BGA Capabilities", routes.smtThtBga, "PCBA child route placeholder.", [
+  smtThtBga: createPlaceholderPage("SMT, THT & BGA Capabilities", routes.smtThtBga, "PCBA child route preview.", [
     { label: "PCB Assembly / PCBA", href: routes.pcba },
     { label: "SMT, THT & BGA Process Support", href: routes.smtThtBgaProcessSupport },
     { label: "Request a Quote", href: routes.requestQuote },
   ]),
-  emsBoxBuild: createPlaceholderPage("EMS & Box Build", routes.emsBoxBuild, "Service route placeholder.", [
+  emsBoxBuild: createPlaceholderPage("EMS & Box Build", routes.emsBoxBuild, "Service route preview.", [
     { label: "Services", href: routes.services },
     { label: "PCB Assembly / PCBA", href: routes.pcba },
     { label: "Request a Quote", href: routes.requestQuote },
   ]),
-  pcbFabrication: createPlaceholderPage("PCB Fabrication", routes.pcbFabrication, "Service route placeholder.", [
+  pcbFabrication: createPlaceholderPage("PCB Fabrication", routes.pcbFabrication, "Service route preview.", [
     { label: "Services", href: routes.services },
     { label: "PCB Assembly / PCBA", href: routes.pcba },
     { label: "Request a Quote", href: routes.requestQuote },
@@ -362,7 +363,7 @@ export const placeholderPages = {
   componentSourcingBomReview: createPlaceholderPage(
     "Component Sourcing & BOM Review",
     routes.componentSourcingBomReview,
-    "Service route placeholder.",
+    "Service route preview.",
     [
       { label: "Services", href: routes.services },
       { label: "Turnkey PCB Assembly", href: routes.turnkey },
@@ -372,130 +373,130 @@ export const placeholderPages = {
   qualityTesting: createPlaceholderPage(
     "Quality & Testing",
     routes.qualityTesting,
-    "Quality and testing hub placeholder for the dropdown group.",
+    "Quality and testing hub preview for the dropdown group.",
     qualityTestingLinks,
   ),
   testingQualityControl: createPlaceholderPage(
     "Testing & Quality Control",
     routes.testingQualityControl,
-    "Quality and testing child route placeholder.",
+    "Quality and testing child route preview.",
     qualityTestingLinks,
   ),
   electricalTesting: createPlaceholderPage(
     "Electrical Testing",
     routes.electricalTesting,
-    "Quality and testing child route placeholder.",
+    "Quality and testing child route preview.",
     qualityTestingLinks,
   ),
   productReliabilityTesting: createPlaceholderPage(
     "Product Reliability Testing",
     routes.productReliabilityTesting,
-    "Quality and testing child route placeholder.",
+    "Quality and testing child route preview.",
     qualityTestingLinks,
   ),
   testingInspectionEquipment: createPlaceholderPage(
     "Testing & Inspection Equipment",
     routes.testingInspectionEquipment,
-    "Quality and testing child route placeholder.",
+    "Quality and testing child route preview.",
     qualityTestingLinks,
   ),
   qualityManagementSystem: createPlaceholderPage(
     "Quality Management System",
     routes.qualityManagementSystem,
-    "Quality and testing child route placeholder.",
+    "Quality and testing child route preview.",
     qualityTestingLinks,
   ),
   packagingLogistics: createPlaceholderPage(
     "Packaging & Logistics",
     routes.packagingLogistics,
-    "Quality and testing child route placeholder.",
+    "Quality and testing child route preview.",
     qualityTestingLinks,
   ),
   engineeringSupport: createPlaceholderPage(
     "Engineering",
     routes.engineeringSupport,
-    "Engineering support hub placeholder for the dropdown group.",
+    "Engineering support hub preview for the dropdown group.",
     engineeringSupportLinks,
   ),
   smtThtBgaProcessSupport: createPlaceholderPage(
     "SMT, THT & BGA Process Support",
     routes.smtThtBgaProcessSupport,
-    "Engineering support child route placeholder.",
+    "Engineering support child route preview.",
     engineeringSupportLinks,
   ),
   pcbTestFixtureSupport: createPlaceholderPage(
     "PCB Test Fixture Support",
     routes.pcbTestFixtureSupport,
-    "Engineering support child route placeholder.",
+    "Engineering support child route preview.",
     engineeringSupportLinks,
   ),
   icProgrammingSupport: createPlaceholderPage(
     "IC Programming Support",
     routes.icProgrammingSupport,
-    "Engineering support child route placeholder.",
+    "Engineering support child route preview.",
     engineeringSupportLinks,
   ),
-  industries: createPlaceholderPage("Industries", routes.industries, "Industries hub placeholder.", industryLinks),
+  industries: createPlaceholderPage("Industries", routes.industries, "Draft industry label preview.", industryLinks),
   industrialElectronics: createPlaceholderPage(
     "Industrial Electronics",
     routes.industrialElectronics,
-    "Industry child route placeholder.",
+    "Draft industry label preview.",
     industryLinks,
   ),
   iotSmartDevices: createPlaceholderPage(
     "IoT & Smart Devices",
     routes.iotSmartDevices,
-    "Industry child route placeholder.",
+    "Draft industry label preview.",
     industryLinks,
   ),
   consumerElectronics: createPlaceholderPage(
     "Consumer Electronics",
     routes.consumerElectronics,
-    "Industry child route placeholder.",
+    "Draft industry label preview.",
     industryLinks,
   ),
   energyPowerElectronics: createPlaceholderPage(
     "Energy & Power Electronics",
     routes.energyPowerElectronics,
-    "Industry child route placeholder.",
+    "Draft industry label preview.",
     industryLinks,
   ),
   automationControl: createPlaceholderPage(
     "Automation & Control",
     routes.automationControl,
-    "Industry child route placeholder.",
+    "Draft industry label preview.",
     industryLinks,
   ),
   communicationEquipment: createPlaceholderPage(
     "Communication Equipment",
     routes.communicationEquipment,
-    "Industry child route placeholder.",
+    "Draft industry label preview.",
     industryLinks,
   ),
-  resources: createPlaceholderPage("Resources", routes.resources, "Resources hub placeholder.", resourceLinks),
-  faq: createPlaceholderPage("FAQ", routes.faq, "Resource child route placeholder.", resourceLinks),
-  blog: createPlaceholderPage("Blog", routes.blog, "Resource child route placeholder.", resourceLinks),
-  guides: createPlaceholderPage("Guides", routes.guides, "Resource child route placeholder.", resourceLinks),
-  downloads: createPlaceholderPage("Downloads", routes.downloads, "Resource child route placeholder.", resourceLinks),
-  catalog: createPlaceholderPage("Catalog", routes.catalog, "Resource child route placeholder.", resourceLinks),
-  glossary: createPlaceholderPage("Glossary", routes.glossary, "Resource child route placeholder.", resourceLinks),
-  caseStudies: createPlaceholderPage("Case Studies", routes.caseStudies, "Resource child route placeholder.", resourceLinks),
-  contact: createPlaceholderPage("Contact", routes.contact, "Contact route placeholder.", [
+  resources: createPlaceholderPage("Resources", routes.resources, "Resources hub preview.", resourceLinks),
+  faq: createPlaceholderPage("FAQ", routes.faq, "Resource child route preview.", resourceLinks),
+  blog: createPlaceholderPage("Blog", routes.blog, "Resource child route preview.", resourceLinks),
+  guides: createPlaceholderPage("Guides", routes.guides, "Resource child route preview.", resourceLinks),
+  downloads: createPlaceholderPage("Downloads", routes.downloads, "Resource child route preview.", resourceLinks),
+  catalog: createPlaceholderPage("Catalog", routes.catalog, "Resource child route preview.", resourceLinks),
+  glossary: createPlaceholderPage("Glossary", routes.glossary, "Resource child route preview.", resourceLinks),
+  caseStudies: createPlaceholderPage("Case Studies", routes.caseStudies, "Resource child route preview.", resourceLinks),
+  contact: createPlaceholderPage("Contact", routes.contact, "Contact route preview.", [
     { label: "Request a Quote", href: routes.requestQuote },
     { label: "Services", href: routes.services },
     { label: "Resources", href: routes.resources },
   ]),
-  requestQuote: createPlaceholderPage("Request a Quote", routes.requestQuote, "RFQ route placeholder.", [
+  requestQuote: createPlaceholderPage("Request a Quote", routes.requestQuote, "RFQ route preview.", [
     { label: "Contact", href: routes.contact },
     { label: "Services", href: routes.services },
     { label: "Thank You", href: routes.thankYou },
   ]),
-  thankYou: createPlaceholderPage("Thank You", routes.thankYou, "Post-submit placeholder route.", [
+  thankYou: createPlaceholderPage("Thank You", routes.thankYou, "Post-submit preview route.", [
     { label: "Home", href: routes.home },
     { label: "Services", href: routes.services },
     { label: "Contact", href: routes.contact },
   ]),
-  privacyPolicy: createPlaceholderPage("Privacy Policy", routes.privacyPolicy, "Legal route placeholder.", topLevelLinks),
-  terms: createPlaceholderPage("Terms", routes.terms, "Legal route placeholder.", topLevelLinks),
-  sitemap: createPlaceholderPage("Sitemap", routes.sitemap, "Sitemap placeholder route.", sitemapLinks),
+  privacyPolicy: createPlaceholderPage("Privacy Policy", routes.privacyPolicy, "Legal route preview.", topLevelLinks),
+  terms: createPlaceholderPage("Terms", routes.terms, "Legal route preview.", topLevelLinks),
+  sitemap: createPlaceholderPage("Sitemap", routes.sitemap, "Sitemap preview route.", sitemapLinks),
 };

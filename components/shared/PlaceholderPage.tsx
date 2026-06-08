@@ -22,7 +22,9 @@ export function PlaceholderPage({ title, role, summary, cta, relatedLinks, child
         {children}
 
         <p className="placeholder-card__note">
-          Final copy will be created in Stage 3.
+          This page is included in the proposed site architecture. Detailed copy and evidence-backed
+          content will be developed after Venture confirms the relevant facts, capabilities, and
+          public-safe claims.
         </p>
 
         <ul className="related-list" aria-label={`Related pages for ${title}`}>

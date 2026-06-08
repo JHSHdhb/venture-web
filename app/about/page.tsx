@@ -1,6 +1,6 @@
-import { PlaceholderPage } from "@/components/shared/PlaceholderPage";
-import { placeholderPages } from "@/lib/site-data";
+import { Stage3PageTemplate } from "@/components/stage3/Stage3PageTemplate";
+import { stage3PageBriefs } from "@/lib/stage3-page-briefs";
 
 export default function AboutPage() {
-  return <PlaceholderPage {...placeholderPages.about} />;
+  return <Stage3PageTemplate brief={stage3PageBriefs["/about/"]} />;
 }

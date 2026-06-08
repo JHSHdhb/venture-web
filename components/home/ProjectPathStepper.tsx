@@ -1,6 +1,6 @@
 import { routes } from "@/lib/site-data";
 
-type StepIcon = "design" | "bom" | "pcba" | "test" | "box";
+type StepIcon = "design" | "fabrication" | "bom" | "pcba" | "test" | "box";
 
 type Step = {
   index: string;
@@ -15,7 +15,7 @@ type Step = {
 const steps: Step[] = [
   {
     index: "01",
-    label: "Design Files",
+    label: "RFQ / Design Files",
     description: "Gerber, BOM, CPL & DFM intake.",
     href: routes.requestQuote,
     icon: "design",
@@ -23,7 +23,15 @@ const steps: Step[] = [
   },
   {
     index: "02",
-    label: "BOM Review",
+    label: "PCB Fabrication",
+    description: "Bare boards may be coordinated before assembly.",
+    href: routes.pcbFabrication,
+    icon: "fabrication",
+    tag: "Boards",
+  },
+  {
+    index: "03",
+    label: "BOM Review & Component Sourcing",
     description: "Sourcing, MOQ & lifecycle checks.",
     href: routes.componentSourcingBomReview,
     icon: "bom",
@@ -31,24 +39,24 @@ const steps: Step[] = [
     variant: "active",
   },
   {
-    index: "03",
-    label: "PCB Assembly",
+    index: "04",
+    label: "PCB Assembly / PCBA",
     description: "SMT · THT · BGA on PCBA line.",
     href: routes.pcba,
     icon: "pcba",
     tag: "PCBA",
   },
   {
-    index: "04",
-    label: "Testing",
+    index: "05",
+    label: "Testing & Quality Control",
     description: "AOI · ICT · functional · reliability.",
     href: routes.testingQualityControl,
     icon: "test",
     tag: "QC",
   },
   {
-    index: "05",
-    label: "EMS & Box Build",
+    index: "06",
+    label: "EMS / Box Build / Delivery Support",
     description: "Assembly, packaging & logistics.",
     href: routes.emsBoxBuild,
     icon: "box",
@@ -66,6 +74,17 @@ function StepGlyph({ name }: { name: StepIcon }) {
           <polyline points="14 2 14 8 20 8" />
           <line x1="9" y1="13" x2="15" y2="13" />
           <line x1="9" y1="17" x2="13" y2="17" />
+        </svg>
+      );
+    case "fabrication":
+      return (
+        <svg className="project-path__step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="4" y="5" width="16" height="14" rx="2" />
+          <circle cx="8" cy="9" r="1" />
+          <circle cx="16" cy="9" r="1" />
+          <circle cx="8" cy="15" r="1" />
+          <circle cx="16" cy="15" r="1" />
+          <path d="M8 9h8M8 15h8M12 9v6" />
         </svg>
       );
     case "bom":
@@ -113,7 +132,7 @@ export function ProjectPathStepper() {
           <div className="project-path__title-block">
             <p className="project-path__eyebrow">Typical project path</p>
             <h2 className="project-path__title" id="project-path-title">
-              From design files to <em>finished assemblies</em> — one accountable partner.
+              From design files to <em>finished assemblies</em> with one accountable partner.
             </h2>
           </div>
         </header>

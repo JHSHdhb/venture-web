@@ -4,7 +4,8 @@ import { routes } from "@/lib/site-data";
 const buyerNeeds = [
   "PCB assembly for new electronics projects",
   "BOM and Gerber review before quotation",
-  "Turnkey assembly support",
+  "Turnkey PCB assembly support",
+  "PCB fabrication coordination before assembly",
   "Prototype or low-volume builds",
   "Testing requirements before delivery",
 ];
@@ -20,9 +21,10 @@ export function PCBAPrimaryBlock() {
               Start with <span className="pcba-primary__accent">PCB Assembly / PCBA</span>
             </h2>
             <p className="pcba-primary__lead">
-              For most electronics projects, PCB assembly is the practical starting point. Venture
-              supports PCBA projects with assembly coordination, BOM review, sourcing support, and
-              testing requirements.
+              For most overseas inquiries, PCB Assembly / PCBA is the practical starting point.
+              Venture&apos;s PCBA work is positioned as turnkey-first: BOM review, component sourcing
+              coordination, assembly, testing, and delivery support can be discussed under one
+              project workflow.
             </p>
             <div className="pcba-primary__actions">
               <CTAButton href={routes.requestQuote}>
@@ -35,7 +37,7 @@ export function PCBAPrimaryBlock() {
             </div>
           </div>
 
-          <aside className="pcba-card" aria-label="PCB Assembly / PCBA — common buyer needs">
+          <aside className="pcba-card" aria-label="PCB Assembly / PCBA common buyer needs">
             <span className="pcba-card__icon" aria-hidden="true">
               <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="15" y="15" width="18" height="18" rx="2.5" />

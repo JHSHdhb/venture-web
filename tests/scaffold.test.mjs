@@ -5,6 +5,34 @@ import { join } from "node:path";
 
 const root = process.cwd();
 
+function readMaybe(relativePath) {
+  const fullPath = join(root, relativePath);
+  return existsSync(fullPath) ? readFileSync(fullPath, "utf8") : "";
+}
+
+const stage3TemplateTypes = [
+  "service-conversion",
+  "strategic-service",
+  "supporting-capability",
+  "quality-trust",
+  "engineering-support",
+  "brand-authority",
+  "industry",
+  "resource",
+  "contact-rfq",
+];
+
+const stage3SectionTypes = [
+  "direct-answer",
+  "key-facts",
+  "scope",
+  "process",
+  "quote-checklist",
+  "proof",
+  "faq",
+  "related-pages",
+];
+
 const expectedRoutes = [
   "/",
   "/about/",
@@ -84,6 +112,62 @@ const obsoleteRoutes = [
   "/services/component-sourcing/",
   "/services/dfm-bom-review/",
 ];
+
+const p0Stage3Routes = [
+  "/about/",
+  "/brand/venture-electronics-vs-venture-pcb-pcba/",
+  "/official-resources/",
+  "/services/",
+  "/services/pcb-assembly-pcba/",
+  "/services/pcb-assembly-pcba/turnkey-pcb-assembly/",
+  "/services/pcb-assembly-pcba/prototype-low-volume-pcba/",
+  "/services/pcb-assembly-pcba/smt-tht-bga-capabilities/",
+  "/services/ems-box-build/",
+  "/services/pcb-fabrication/",
+  "/services/component-sourcing-bom-review/",
+  "/quality-testing/",
+  "/quality-testing/testing-quality-control/",
+  "/engineering-support/",
+  "/resources/faq/",
+  "/contact/",
+  "/request-a-quote/",
+];
+
+const p1Stage3Routes = [
+  "/quality-testing/electrical-testing/",
+  "/quality-testing/product-reliability-testing/",
+  "/quality-testing/testing-inspection-equipment/",
+  "/quality-testing/quality-management-system/",
+  "/quality-testing/packaging-logistics/",
+  "/engineering-support/smt-tht-bga-process-support/",
+  "/engineering-support/pcb-test-fixture-support/",
+  "/engineering-support/ic-programming-support/",
+  "/industries/",
+  "/industries/industrial-electronics/",
+  "/industries/iot-smart-devices/",
+  "/industries/consumer-electronics/",
+  "/industries/energy-power-electronics/",
+  "/industries/automation-control/",
+  "/industries/communication-equipment/",
+];
+
+const p2Stage3Routes = [
+  "/about/company-overview/",
+  "/about/news/",
+  "/resources/",
+  "/resources/blog/",
+  "/resources/guides/",
+  "/resources/downloads/",
+  "/resources/catalog/",
+  "/resources/glossary/",
+  "/resources/case-studies/",
+  "/thank-you/",
+  "/privacy-policy/",
+  "/terms/",
+  "/sitemap/",
+];
+
+const stage3TemplateRoutes = [...p0Stage3Routes, ...p1Stage3Routes, ...p2Stage3Routes];
 
 function routeToPageFile(route) {
   return route === "/" ? "app/page.tsx" : `app${route}page.tsx`;
@@ -171,12 +255,145 @@ test("homepage renders the low-fidelity buyer-router sections", () => {
   assert.doesNotMatch(homepage, /PlaceholderPage/);
 });
 
-test("non-home routes remain PlaceholderPage scaffolds", () => {
+test("client preview copy removes internal scaffold language", () => {
+  const sourceFiles = [
+    "app/layout.tsx",
+    "components/shared/PlaceholderPage.tsx",
+    "components/site/Footer.tsx",
+    "lib/site-data.ts",
+    ...readSourceFiles("components/home"),
+  ];
+  const source = sourceFiles.map((file) => readFileSync(join(root, file), "utf8")).join("\n");
+  const normalizedSource = source.replace(/\s+/g, " ");
+  const internalPhrases = [
+    /Demo Scaffold/i,
+    /demo scaffold/i,
+    /Stage 3/i,
+    /Nav-only placeholder/i,
+    /validate sitemap coverage/i,
+    /route wiring/i,
+    /nav-only scaffold/i,
+  ];
+
+  assert.match(normalizedSource, /Venture Electronics Website Architecture Preview/);
+  assert.match(
+    normalizedSource,
+    /public facts, capabilities, certifications, official channels, and evidence-backed claims/,
+  );
+
+  for (const phrase of internalPhrases) {
+    assert.doesNotMatch(source, phrase);
+  }
+});
+
+test("homepage emphasizes turnkey-first PCBA and bare-board coordination", () => {
+  const hero = readFileSync(join(root, "components/home/HomeHero.tsx"), "utf8").replace(/\s+/g, " ");
+  const heroCss = readFileSync(join(root, "app/globals.css"), "utf8").replace(/\s+/g, " ");
+  const pcbaBlock = readFileSync(join(root, "components/home/PCBAPrimaryBlock.tsx"), "utf8").replace(/\s+/g, " ");
+  const projectPath = readFileSync(join(root, "components/home/ProjectPathStepper.tsx"), "utf8").replace(/\s+/g, " ");
+  const emsBlock = readFileSync(join(root, "components/home/EMSBoxBuildBlock.tsx"), "utf8").replace(/\s+/g, " ");
+
+  assert.match(hero, /Turnkey PCB Assembly \/ /);
+  assert.match(hero, /PCBA and EMS Support for Electronics Projects/);
+  assert.match(hero, /turnkey-first PCB assembly \/ PCBA/);
+  assert.match(heroCss, /url\("\/hero-pcba-smt\.jpg"\)/);
+  assert.match(heroCss, /url\("\/hero-ems-factory\.jpg"\)/);
+  assert.match(heroCss, /box-shadow:/);
+  assert.match(
+    hero,
+    /including BOM review, component sourcing, PCB fabrication coordination, assembly, and testing\./,
+  );
+  assert.doesNotMatch(hero, /under one accountable manufacturing partner/);
+  assert.match(pcbaBlock, /turnkey-first/);
+  assert.match(emsBlock, /turnkey PCB Assembly \/ PCBA remains the primary homepage inquiry entry/);
+  assert.match(projectPath, /PCB Fabrication/);
+  assert.doesNotMatch(projectPath, /Bare-board Coordination/);
+  assert.doesNotMatch(projectPath, /be included or/);
+  assert.match(projectPath, /BOM Review & Component Sourcing/);
+  assert.match(projectPath, /Testing & Quality Control/);
+  assert.match(projectPath, /EMS \/ Box Build \/ Delivery Support/);
+  assert.match(projectPath, /index: "06"/);
+});
+
+test("brand clarification and official resources are readable GEO pages", () => {
+  const brandPage = readFileSync(join(root, "app/brand/venture-electronics-vs-venture-pcb-pcba/page.tsx"), "utf8");
+  const officialResourcesPage = readFileSync(join(root, "app/official-resources/page.tsx"), "utf8");
+  const stage3Data = readFileSync(join(root, "lib/stage3-page-briefs.ts"), "utf8");
+
+  assert.doesNotMatch(brandPage, /PlaceholderPage/);
+  assert.doesNotMatch(officialResourcesPage, /PlaceholderPage/);
+  assert.match(brandPage, /Stage3PageTemplate/);
+  assert.match(officialResourcesPage, /Stage3PageTemplate/);
+  assert.match(stage3Data, /Venture Electronics is the mother brand/);
+  assert.match(stage3Data, /should not be confused with similarly named companies/);
+  assert.match(stage3Data, /Official Venture Electronics Online Resources/);
+  assert.match(stage3Data, /venture-mfg\.com/);
+  assert.match(stage3Data, /venture-pcba\.com/);
+  assert.match(stage3Data, /final official URL to be confirmed/);
+});
+
+test("RFQ guidance includes turnkey PCBA files and conditional requirements", () => {
+  const rfq = readFileSync(join(root, "components/home/RFQGuidanceBlock.tsx"), "utf8");
+
+  for (const item of [
+    "Pick-and-place / CPL",
+    "Assembly drawing",
+    "NDA requirement, if applicable",
+    "Firmware / programming requirement, if applicable",
+    "Consigned / partially consigned parts, if applicable",
+  ]) {
+    assert.match(rfq, new RegExp(item.replaceAll("/", "\\/")));
+  }
+});
+
+test("Stage 3 page briefs define server-rendered P0, P1, and P2 content structure", () => {
+  const data = readFileSync(join(root, "lib/stage3-page-briefs.ts"), "utf8");
+  const template = readFileSync(join(root, "components/stage3/Stage3PageTemplate.tsx"), "utf8");
+  const css = readFileSync(join(root, "app/globals.css"), "utf8");
+
+  assert.match(data, /export type Stage3PageBrief/);
+  assert.match(data, /export const stage3PageBriefs/);
+  assert.match(data, /priority: "P0"/);
+  assert.match(data, /priority: "P1"/);
+  assert.match(data, /priority: "P2"/);
+  assert.match(data, /template: "service-conversion"/);
+  assert.match(data, /template: "brand-authority"/);
+  assert.match(data, /template: "quality-trust"/);
+  assert.match(data, /template: "engineering-support"/);
+  assert.match(data, /template: "industry"/);
+  assert.match(data, /directAnswer:/);
+  assert.match(data, /faqSeeds:/);
+  assert.match(data, /claimNotes:/);
+  assert.match(data, /Request a Quote/);
+
+  for (const route of stage3TemplateRoutes) {
+    assert.match(data, new RegExp(`route: "${route.replaceAll("/", "\\/")}"`), `${route} should have a Stage 3 brief`);
+  }
+
+  for (const componentName of [
+    "Stage3Hero",
+    "Stage3Section",
+    "Stage3FAQ",
+    "Stage3RelatedPages",
+    "Stage3CTA",
+  ]) {
+    assert.match(template, new RegExp(componentName), `${componentName} should be used in the template`);
+  }
+
+  assert.match(css, /stage3-page/);
+});
+
+test("all non-home sitemap routes render Stage 3 templates", () => {
   const routePageFiles = readSourceFiles("app").filter((file) => file.endsWith("page.tsx") && file !== "app/page.tsx");
   const appSource = routePageFiles.map((file) => readFileSync(join(root, file), "utf8")).join("\n");
+  const stage3PageFiles = new Set(stage3TemplateRoutes.map(routeToPageFile));
 
   for (const pageFile of routePageFiles) {
-    assert.match(readFileSync(join(root, pageFile), "utf8"), /PlaceholderPage/, `${pageFile} should remain a placeholder`);
+    const source = readFileSync(join(root, pageFile), "utf8");
+    assert.equal(stage3PageFiles.has(pageFile), true, `${pageFile} should be listed as a Stage 3 route`);
+    assert.match(source, /Stage3PageTemplate/, `${pageFile} should render Stage3PageTemplate`);
+    assert.match(source, /stage3PageBriefs/, `${pageFile} should read from stage3PageBriefs`);
+    assert.doesNotMatch(source, /PlaceholderPage/, `${pageFile} should not remain a placeholder`);
   }
 
   assert.doesNotMatch(appSource, /Static form placeholder/);
@@ -212,4 +429,47 @@ test("placeholder data includes page role and related links", () => {
   assert.match(data, /relatedLinks:/);
   assert.match(placeholder, /role/);
   assert.match(placeholder, /relatedLinks/);
+});
+
+test("each Stage 3 template type has a distinct, plan-aligned rendering path", () => {
+  const layouts = readMaybe("components/stage3/templateLayouts.ts");
+  const template = readFileSync(join(root, "components/stage3/Stage3PageTemplate.tsx"), "utf8");
+  const css = readFileSync(join(root, "app/globals.css"), "utf8");
+
+  // A registry maps every template type to its own layout, and the page
+  // template dispatches on it instead of rendering one fixed layout.
+  assert.match(layouts, /export const templateLayouts/);
+  assert.match(template, /templateLayouts/);
+
+  for (const templateType of stage3TemplateTypes) {
+    assert.match(
+      layouts,
+      new RegExp(`"${templateType}"`),
+      `templateLayouts should define the ${templateType} template`,
+    );
+    assert.match(
+      layouts,
+      new RegExp(`stage3-page--${templateType}`),
+      `${templateType} should map to a distinct wrapper class`,
+    );
+    assert.match(
+      css,
+      new RegExp(`stage3-page--${templateType}`),
+      `${templateType} should have a template-specific CSS accent`,
+    );
+  }
+});
+
+test("Stage 3 sections render by their section type", () => {
+  const sections = readMaybe("components/stage3/Stage3Sections.tsx");
+
+  assert.match(sections, /Stage3Section/);
+
+  for (const sectionType of stage3SectionTypes) {
+    assert.match(
+      sections,
+      new RegExp(`"${sectionType}"`),
+      `Stage3Sections should provide a renderer for the ${sectionType} section type`,
+    );
+  }
 });

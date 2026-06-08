@@ -7,7 +7,7 @@ export function BrandPositioning() {
         <SectionHeader
           label="Mother brand"
           title="Venture Electronics remains the official brand layer."
-          intro="This demo treats Venture Electronics as the mother brand and uses the website structure to explain services, business-line wording, official resources, and evidence boundaries."
+          intro="This preview treats Venture Electronics as the mother brand and uses the website structure to explain services, business-line wording, official resources, and evidence boundaries."
         />
         <div className="grid-3">
           <article className="info-panel">
@@ -28,7 +28,7 @@ export function BrandPositioning() {
             <h3>Evidence-gated claims</h3>
             <p>
               Detailed proof points, official channel status, and regulated factual claims are reserved for
-              Stage 3 evidence review instead of being invented in this scaffold.
+              Venture confirmation before they are used in public website content.
             </p>
           </article>
         </div>

@@ -32,11 +32,13 @@ export function Header() {
     <header className={`site-header${scrolled ? " site-header--scrolled" : " site-header--glass"}`}>
       <div className="site-header__inner">
         <Link className="brand-mark" href={routes.home} aria-label="Venture Electronics home">
-          <span className="brand-mark__mono">V/E</span>
-          <span className="brand-mark__stack">
-            <span className="brand-mark__name">Venture Electronics</span>
-            <span className="brand-mark__descriptor">PCBA · EMS · Box Build</span>
-          </span>
+          <img
+            className="brand-mark__logo"
+            src="/venture-logo.png"
+            alt="Venture Electronics — PCBA · EMS · Box Build"
+            width={233}
+            height={66}
+          />
         </Link>
 
         <nav className="main-nav" aria-label="Main navigation">

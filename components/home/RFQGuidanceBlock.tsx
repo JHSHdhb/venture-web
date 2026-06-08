@@ -5,12 +5,17 @@ import { routes } from "@/lib/site-data";
 const rfqItems = [
   "Gerber files",
   "BOM",
+  "Pick-and-place / CPL",
+  "Assembly drawing",
   "Quantity",
   "PCB specifications",
   "Assembly requirements",
   "Testing requirements",
   "Target timeline",
+  "NDA requirement, if applicable",
+  "Firmware / programming requirement, if applicable",
   "Box build or final assembly notes, if applicable",
+  "Consigned / partially consigned parts, if applicable",
 ];
 
 export function RFQGuidanceBlock() {
