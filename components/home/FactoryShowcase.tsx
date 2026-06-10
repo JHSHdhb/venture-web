@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type FactoryImage = { src: string; alt: string };
 
 // Placeholder slots — drop the real factory photos into public/factory-1…5
@@ -7,7 +9,7 @@ const images: FactoryImage[] = [
   { src: "/factory-2.jpg", alt: "SMT assembly line" },
   { src: "/factory-3.jpg", alt: "PCB assembly close-up" },
   { src: "/factory-4.jpg", alt: "Assembled board inspection" },
-  { src: "/factory-5.png", alt: "Automated assembly equipment" },
+  { src: "/factory-5.jpg", alt: "Automated assembly equipment" },
 ];
 
 export function FactoryShowcase() {
@@ -33,14 +35,14 @@ export function FactoryShowcase() {
             <div
               className="factory__slide"
               key={`${img.src}-${i}`}
-              role={i < images.length ? "img" : undefined}
-              aria-label={i < images.length ? img.alt : undefined}
               aria-hidden={i >= images.length ? true : undefined}
             >
-              <span
+              <Image
                 className="factory__img"
-                style={{ backgroundImage: `url("${img.src}")` }}
-                aria-hidden="true"
+                src={img.src}
+                alt={i < images.length ? img.alt : ""}
+                fill
+                sizes="(max-width: 620px) 280px, 380px"
               />
             </div>
           ))}

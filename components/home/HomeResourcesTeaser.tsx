@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { routes } from "@/lib/site-data";
 
@@ -12,7 +13,7 @@ const posts: Post[] = [
   {
     category: "PCBA",
     title: "Turnkey vs consigned PCB assembly",
-    image: "/hero-assembly-robots.png",
+    image: "/hero-assembly-robots.jpg",
   },
   {
     category: "EMS",
@@ -44,9 +45,12 @@ export function HomeResourcesTeaser() {
           {posts.map((post) => (
             <Link href={routes.blog} className="blog-card" key={post.title}>
               <span className="blog-card__media">
-                <span
+                <Image
                   className="blog-card__img"
-                  style={{ backgroundImage: `url("${post.image}")` }}
+                  src={post.image}
+                  alt=""
+                  fill
+                  sizes="(max-width: 620px) calc(100vw - 48px), (max-width: 900px) 30vw, 250px"
                 />
               </span>
               <span className="blog-card__cat">{post.category}</span>

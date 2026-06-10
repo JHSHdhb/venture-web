@@ -265,6 +265,60 @@ test("homepage renders the low-fidelity buyer-router sections", () => {
   assert.doesNotMatch(homepage, /PlaceholderPage/);
 });
 
+test("homepage image-heavy sections use optimized responsive images", () => {
+  const imageHeavyComponents = [
+    "components/home/CoreServicesBlock.tsx",
+    "components/home/FactoryShowcase.tsx",
+    "components/home/CapabilityEvidence.tsx",
+    "components/home/HomeFAQBlock.tsx",
+    "components/home/HomeResourcesTeaser.tsx",
+  ];
+  const combinedSource = imageHeavyComponents.map(readMaybe).join("\n");
+
+  for (const componentPath of imageHeavyComponents) {
+    const source = readMaybe(componentPath);
+    assert.match(source, /from "next\/image"/, `${componentPath} should use next/image`);
+    assert.match(source, /<Image\b/, `${componentPath} should render responsive Image components`);
+  }
+
+  for (const componentPath of [
+    "components/home/CoreServicesBlock.tsx",
+    "components/home/FactoryShowcase.tsx",
+    "components/home/HomeResourcesTeaser.tsx",
+  ]) {
+    assert.doesNotMatch(
+      readMaybe(componentPath),
+      /backgroundImage/,
+      `${componentPath} should not bypass image optimization with CSS backgroundImage`,
+    );
+  }
+
+  const optimizedRefs = [
+    "/hero-assembly-robots.jpg",
+    "/hero-circuit-globe.jpg",
+    "/factory-5.jpg",
+    "/capabilities-machine.jpg",
+    "/faq-smt-line.jpg",
+  ];
+
+  for (const ref of optimizedRefs) {
+    assert.match(combinedSource, new RegExp(ref.replace(".", "\\.")), `${ref} should be used`);
+    const assetPath = join(root, "public", ref.slice(1));
+    assert.equal(existsSync(assetPath), true, `${ref} should exist`);
+    assert.ok(statSync(assetPath).size < 180 * 1024, `${ref} should stay below 180 KB`);
+  }
+
+  for (const ref of [
+    "/hero-assembly-robots.png",
+    "/hero-circuit-globe.png",
+    "/factory-5.png",
+    "/capabilities-machine.png",
+    "/faq-smt-line.png",
+  ]) {
+    assert.doesNotMatch(combinedSource, new RegExp(ref.replace(".", "\\.")), `${ref} should not be used on the homepage`);
+  }
+});
+
 test("client preview copy removes internal scaffold language", () => {
   const sourceFiles = [
     "app/layout.tsx",

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { routes } from "@/lib/site-data";
 
@@ -61,10 +62,13 @@ export function HomeFAQBlock() {
           </div>
 
           <div className="home-faq__media">
-            <img
-              src="/faq-smt-line.png"
+            <Image
+              src="/faq-smt-line.jpg"
               alt="Illustration of a PCB assembly / SMT production line"
               className="home-faq__img"
+              width={1200}
+              height={675}
+              sizes="(max-width: 860px) calc(100vw - 48px), 46vw"
               loading="lazy"
             />
           </div>

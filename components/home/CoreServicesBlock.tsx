@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { routes } from "@/lib/site-data";
 
@@ -21,7 +22,7 @@ const services: Svc[] = [
     label: "Turnkey PCB Assembly",
     href: routes.turnkey,
     description: "Full-process delivery, files to tested boards.",
-    image: "/hero-assembly-robots.png",
+    image: "/hero-assembly-robots.jpg",
   },
   {
     label: "EMS & Box Build",
@@ -34,7 +35,7 @@ const services: Svc[] = [
     label: "Component Sourcing & BOM Review",
     href: routes.componentSourcingBomReview,
     description: "Supply-chain and BOM review support.",
-    image: "/hero-circuit-globe.png",
+    image: "/hero-circuit-globe.jpg",
   },
   {
     label: "Testing & Quality Control",
@@ -77,9 +78,12 @@ export function CoreServicesBlock() {
           {services.map((svc) => (
             <Link key={svc.href} href={svc.href} className="product-card">
               <div className="product-card__media">
-                <span
+                <Image
                   className="product-card__img"
-                  style={{ backgroundImage: `url("${svc.image}")` }}
+                  src={svc.image}
+                  alt=""
+                  fill
+                  sizes="(max-width: 700px) calc(100vw - 48px), (max-width: 1080px) 31vw, 185px"
                 />
                 {svc.tag ? (
                   <span

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { CTAButton } from "@/components/site/CTAButton";
 import { routes } from "@/lib/site-data";
@@ -133,11 +134,13 @@ export function CapabilityEvidence() {
           </div>
 
           <div className="cap__media">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/capabilities-machine.png"
+            <Image
+              src="/capabilities-machine.jpg"
               alt="Venture SMT placement and assembly equipment"
               className="cap__media-img"
+              width={768}
+              height={960}
+              sizes="(max-width: 900px) 340px, 28vw"
             />
           </div>
 
