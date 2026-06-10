@@ -1,23 +1,30 @@
-import { CTAButton } from "@/components/site/CTAButton";
-import { routes } from "@/lib/site-data";
-
 export function HomeFinalCTA() {
   return (
-    <section className="home-section home-section--dark" aria-labelledby="home-final-cta-title">
-      <div className="home-section__inner">
-        <div className="dark-panel final-cta-panel">
-          <h2 id="home-final-cta-title">Ready to Discuss a PCB Assembly or EMS Project?</h2>
-          <p>
-            Send your files, BOM, quantity, and project requirements. Venture Electronics can review the
-            information and help route your inquiry to the right PCBA, sourcing, testing, or box build path.
+    <section className="final-cta" aria-labelledby="home-final-cta-title">
+      <div className="final-cta__overlay" aria-hidden="true" />
+      <div className="final-cta__inner">
+        <div className="final-cta__text">
+          <h2 id="home-final-cta-title" className="final-cta__title">
+            Subscribe for PCBA &amp; EMS updates
+          </h2>
+          <p className="final-cta__desc">
+            Get capability updates, new resources, and practical manufacturing insights from Venture
+            Electronics — delivered to your inbox.
           </p>
-          <div className="section-actions">
-            <CTAButton href={routes.requestQuote}>Request a Quote</CTAButton>
-            <CTAButton href={routes.contact} variant="dark">
-              Contact Venture Electronics
-            </CTAButton>
-          </div>
         </div>
+        <form className="subscribe" aria-label="Subscribe to Venture Electronics updates">
+          <input
+            type="email"
+            name="email"
+            className="subscribe__input"
+            placeholder="Email Address"
+            autoComplete="email"
+            aria-label="Email address"
+          />
+          <button type="submit" className="subscribe__btn">
+            Subscribe Now
+          </button>
+        </form>
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { CTAButton } from "@/components/site/CTAButton";
 import { routes } from "@/lib/site-data";
 
@@ -12,7 +12,15 @@ const slides = [
     bg: "/hero-pcba-smt.jpg",
     bgClass: "hero__bg--pcba",
     accent: "Turnkey PCB Assembly / PCBA and EMS Support for Electronics Projects",
-    lead: "Venture Electronics supports electronics product teams with turnkey-first PCB assembly / PCBA, including BOM review, component sourcing, PCB fabrication coordination, assembly, and testing.",
+    keywords: [
+      "China-based manufacturing partner",
+      "Turnkey-first PCB Assembly / PCBA",
+      "BOM review",
+      "Component sourcing",
+      "PCB fabrication",
+      "Assembly",
+      "Testing",
+    ],
     primary: { label: "Request a Quote", href: routes.requestQuote },
     secondary: { label: "Explore Turnkey PCBA", href: routes.pcba },
   },
@@ -21,7 +29,14 @@ const slides = [
     bg: "/hero-ems-factory.jpg",
     bgClass: "hero__bg--ems",
     accent: "EMS & Box Build — From Assembled Boards to Finished Products",
-    lead: "Beyond PCBA, Venture Electronics coordinates EMS and box build projects: enclosure and mechanical integration, cable and harness assembly, functional testing, packaging, and shipment of finished units.",
+    keywords: [
+      "EMS & Box Build",
+      "Final assembly",
+      "Cable & harness assembly",
+      "Functional testing",
+      "Packaging",
+      "Delivery support",
+    ],
     primary: { label: "Request a Quote", href: routes.requestQuote },
     secondary: { label: "Explore EMS & Box Build", href: routes.emsBoxBuild },
   },
@@ -42,10 +57,6 @@ export function HomeHero() {
     }, ROTATE_MS);
     return () => clearInterval(timer);
   }, [active]);
-
-  const goTo = useCallback((index: number) => {
-    setActive(index);
-  }, []);
 
   const prev = useCallback(() => {
     setActive((i) => (i - 1 + slides.length) % slides.length);
@@ -86,29 +97,21 @@ export function HomeHero() {
 
         <div className="hero__rule" aria-hidden="true" />
 
-        <p key={`lead-${slide.id}`} className="hero__lead">
-          {slide.lead}
+        <p key={`lead-${slide.id}`} className="hero__lead hero__lead--keywords">
+          {slide.keywords.map((kw, i) => (
+            <Fragment key={kw}>
+              {i > 0 ? (
+                <span className="hero__lead-sep" aria-hidden="true">
+                  |
+                </span>
+              ) : null}
+              <span className="hero__lead-kw">{kw}</span>
+            </Fragment>
+          ))}
         </p>
 
         <div key={`actions-${slide.id}`} className="hero__actions">
-          <CTAButton href={slide.primary.href}>{slide.primary.label}</CTAButton>
-          <CTAButton href={slide.secondary.href} variant="dark">
-            {slide.secondary.label}
-          </CTAButton>
-        </div>
-
-        <div className="hero__dots" role="tablist" aria-label="Hero slides">
-          {slides.map((s, i) => (
-            <button
-              key={s.id}
-              type="button"
-              role="tab"
-              aria-selected={i === active}
-              aria-label={`Slide ${i + 1}: ${s.id === "pcba" ? "Turnkey PCBA" : "EMS & Box Build"}`}
-              className={`hero__dot ${i === active ? "hero__dot--active" : ""}`}
-              onClick={() => goTo(i)}
-            />
-          ))}
+          <CTAButton href={slide.secondary.href}>{slide.secondary.label}</CTAButton>
         </div>
       </div>
 

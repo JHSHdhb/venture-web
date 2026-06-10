@@ -2,11 +2,11 @@ import { CTAButton } from "@/components/site/CTAButton";
 import { routes } from "@/lib/site-data";
 
 const identityFeatures = [
-  "PCBA-first service hierarchy",
-  "SMT · THT · BGA process context",
+  "Sourcing coordination",
   "DFM and BOM review support",
-  "Sourcing discussion for long-lead parts",
-  "Testing and quality control routing",
+  "Testing and quality planning",
+  "Human project ownership",
+  "Small-to-medium volume support",
   "EMS and box build project coordination",
 ];
 
@@ -28,10 +28,9 @@ export function VentureIdentityBlock() {
             <span className="identity__accent">Venture Electronics</span> mother brand.
           </h2>
           <p className="identity__lead">
-            Venture Electronics is the mother brand for Venture&apos;s PCB assembly, PCBA, EMS,
-            box build, component sourcing, and electronics manufacturing support. Venture PCB and
-            Venture PCBA are service-entry concepts connected to the mother brand, not separate
-            companies.
+            Venture Electronics is the mother brand for Venture&apos;s PCBA, EMS, box build, and
+            component sourcing — with sourcing coordination, DFM / BOM review, testing and quality
+            planning, human project ownership, and small-to-medium volume support.
           </p>
         </div>
 

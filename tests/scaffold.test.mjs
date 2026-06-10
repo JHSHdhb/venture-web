@@ -237,13 +237,16 @@ test("homepage renders the low-fidelity buyer-router sections", () => {
   const homepage = readFileSync(join(root, "app/page.tsx"), "utf8");
   const componentNames = [
     "HomeHero",
+    "CoreServicesBlock",
     "VentureIdentityBlock",
-    "PCBAPrimaryBlock",
-    "PCBAPathCards",
+    "CapabilityEvidence",
+    "ProjectPathStepper",
+    "CatalogBanner",
+    "FactoryShowcase",
     "EMSBoxBuildBlock",
-    "SupportCapabilitiesBlock",
-    "RFQGuidanceBlock",
     "BrandAuthorityTeaser",
+    "HomeResourcesTeaser",
+    "HomeFAQBlock",
     "HomeFinalCTA",
   ];
 
@@ -251,6 +254,13 @@ test("homepage renders the low-fidelity buyer-router sections", () => {
     assert.match(homepage, new RegExp(`import \\{ ${componentName} \\}`), `${componentName} should be imported`);
     assert.match(homepage, new RegExp(`<${componentName} \\/>`), `${componentName} should render on the homepage`);
   }
+
+  const renderedOrder = componentNames.map((componentName) => homepage.indexOf(`<${componentName} />`));
+  assert.deepEqual(
+    renderedOrder,
+    renderedOrder.toSorted((a, b) => a - b),
+    "homepage sections should follow the C1 client-facing structure order",
+  );
 
   assert.doesNotMatch(homepage, /PlaceholderPage/);
 });
@@ -289,27 +299,44 @@ test("client preview copy removes internal scaffold language", () => {
 test("homepage emphasizes turnkey-first PCBA and bare-board coordination", () => {
   const hero = readFileSync(join(root, "components/home/HomeHero.tsx"), "utf8").replace(/\s+/g, " ");
   const heroCss = readFileSync(join(root, "app/globals.css"), "utf8").replace(/\s+/g, " ");
-  const pcbaBlock = readFileSync(join(root, "components/home/PCBAPrimaryBlock.tsx"), "utf8").replace(/\s+/g, " ");
+  const coreServices = readFileSync(join(root, "components/home/CoreServicesBlock.tsx"), "utf8").replace(/\s+/g, " ");
+  const identity = readFileSync(join(root, "components/home/VentureIdentityBlock.tsx"), "utf8").replace(/\s+/g, " ");
   const projectPath = readFileSync(join(root, "components/home/ProjectPathStepper.tsx"), "utf8").replace(/\s+/g, " ");
   const emsBlock = readFileSync(join(root, "components/home/EMSBoxBuildBlock.tsx"), "utf8").replace(/\s+/g, " ");
 
   assert.match(hero, /Turnkey PCB Assembly \/ /);
   assert.match(hero, /PCBA and EMS Support for Electronics Projects/);
-  assert.match(hero, /turnkey-first PCB assembly \/ PCBA/);
+  assert.match(hero, /Turnkey-first PCB Assembly \/ PCBA/);
+  assert.match(hero, /China-based manufacturing partner/);
   assert.match(heroCss, /url\("\/hero-pcba-smt\.jpg"\)/);
   assert.match(heroCss, /url\("\/hero-ems-factory\.jpg"\)/);
   assert.match(heroCss, /box-shadow:/);
-  assert.match(
-    hero,
-    /including BOM review, component sourcing, PCB fabrication coordination, assembly, and testing\./,
-  );
+  assert.match(hero, /BOM review/);
+  assert.match(hero, /Component sourcing/);
+  assert.match(hero, /PCB fabrication/);
   assert.doesNotMatch(hero, /under one accountable manufacturing partner/);
-  assert.match(pcbaBlock, /turnkey-first/);
+  assert.match(coreServices, /turnkey-first/);
+  assert.match(coreServices, /label: "PCB Assembly \/ PCBA"/);
+  assert.match(coreServices, /label: "Turnkey PCB Assembly"/);
+  assert.match(coreServices, /label: "EMS & Box Build"/);
+  assert.match(coreServices, /label: "Component Sourcing & BOM Review"/);
+  assert.match(coreServices, /label: "PCB Fabrication"/);
+  assert.match(identity, /human project ownership/);
+  assert.match(identity, /small-to-medium volume/);
+  assert.match(identity, /testing and quality planning/);
   assert.match(emsBlock, /turnkey PCB Assembly \/ PCBA remains the primary homepage inquiry entry/);
-  assert.match(projectPath, /PCB Fabrication/);
+  assert.match(projectPath, /Assembly drawing/);
+  assert.match(projectPath, /quantity/);
+  assert.match(projectPath, /testing requirements/);
+  assert.match(projectPath, /Review project files/);
   assert.doesNotMatch(projectPath, /Bare-board Coordination/);
   assert.doesNotMatch(projectPath, /be included or/);
+  assert.ok(
+    projectPath.indexOf("BOM Review & Component Sourcing") < projectPath.indexOf("PCB Fabrication"),
+    "BOM review and sourcing should appear before PCB fabrication coordination",
+  );
   assert.match(projectPath, /BOM Review & Component Sourcing/);
+  assert.match(projectPath, /PCB Fabrication/);
   assert.match(projectPath, /Testing & Quality Control/);
   assert.match(projectPath, /EMS \/ Box Build \/ Delivery Support/);
   assert.match(projectPath, /index: "06"/);

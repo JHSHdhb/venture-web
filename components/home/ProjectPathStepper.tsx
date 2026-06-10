@@ -15,28 +15,28 @@ type Step = {
 const steps: Step[] = [
   {
     index: "01",
-    label: "RFQ / Design Files",
-    description: "Gerber, BOM, CPL & DFM intake.",
+    label: "Review project files / RFQ",
+    description: "Gerber, BOM, CPL, Assembly drawing, quantity & testing requirements.",
     href: routes.requestQuote,
     icon: "design",
     tag: "Day 0",
   },
   {
     index: "02",
-    label: "PCB Fabrication",
-    description: "Bare boards may be coordinated before assembly.",
-    href: routes.pcbFabrication,
-    icon: "fabrication",
-    tag: "Boards",
-  },
-  {
-    index: "03",
     label: "BOM Review & Component Sourcing",
     description: "Sourcing, MOQ & lifecycle checks.",
     href: routes.componentSourcingBomReview,
     icon: "bom",
     tag: "BOM",
     variant: "active",
+  },
+  {
+    index: "03",
+    label: "PCB Fabrication",
+    description: "Bare-board fabrication coordination when scope requires it.",
+    href: routes.pcbFabrication,
+    icon: "fabrication",
+    tag: "Boards",
   },
   {
     index: "04",
@@ -137,23 +137,25 @@ export function ProjectPathStepper() {
           </div>
         </header>
 
-        <ol className="project-path__steps">
-          {steps.map((step) => (
-            <li
-              key={step.index}
-              className={`project-path__step${
-                step.variant === "active" ? " project-path__step--active" : ""
-              }${step.variant === "featured" ? " project-path__step--featured" : ""}`}
-            >
-              <span className="project-path__step-bullet" aria-hidden="true">
-                <StepGlyph name={step.icon} />
-              </span>
-              <span className="project-path__step-label">{step.label}</span>
-              <span className="project-path__step-desc">{step.description}</span>
-              {step.tag ? <span className="project-path__step-tag">{step.tag}</span> : null}
-            </li>
-          ))}
-        </ol>
+        <div className="project-path__scroller">
+          <ol className="project-path__steps">
+            {steps.map((step) => (
+              <li
+                key={step.index}
+                className={`project-path__step${
+                  step.variant === "active" ? " project-path__step--active" : ""
+                }${step.variant === "featured" ? " project-path__step--featured" : ""}`}
+              >
+                <span className="project-path__step-bullet" aria-hidden="true">
+                  <StepGlyph name={step.icon} />
+                </span>
+                <span className="project-path__step-label">{step.label}</span>
+                <span className="project-path__step-desc">{step.description}</span>
+                {step.tag ? <span className="project-path__step-tag">{step.tag}</span> : null}
+              </li>
+            ))}
+          </ol>
+        </div>
       </section>
     </div>
   );
